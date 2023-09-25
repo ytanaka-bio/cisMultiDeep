@@ -20,7 +20,7 @@ pip install -r requirements.txt --user
 aws s3 sync s3://biccn-challenge . --no-sign-request
 ```
 2. Obtain orthologous gene list from [Biomart](http://useast.ensembl.org/biomart/martview) as follow:
-- Choose "Ensembl Gene 10" and "Human genes (GRCh39.p14)
+- Choose "Ensembl Gene 10" and "Human genes (GRCh39.p14)"
 - In Attributes section, choose "Homologues (Max select 6 orthologues)"
 - In GENE tab, choose "Gene stable ID" and "Gene name"
 - In ORTHOLOGUES [K-O] tab, choose "Macaque gene table ID", "Macaque gene name", "Mouse gene stable ID", and "Mouse gene name"
