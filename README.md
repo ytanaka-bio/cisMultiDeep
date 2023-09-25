@@ -1,11 +1,12 @@
 # BICCN_Challenge_2023
 ## Introduction
-Here, we present the workflow to identify functional enhancers for each annotated cell type from a diverse collection of multi-omics profiles.
+This repository presents the workflow to identify functional enhancers for each annotated cell type from a diverse collection of multi-omics profiles. Here, we hypothesize that cell type is determined by a common set of genes, whose expression is regulated by highly-conserved enhancers across species. 
 
 ## Environment
+```{r eval=FALSE}
 python = 3.10.2
 R = 4.0.6
-
+```
 ## Requirement
 ## Downloading
 ```{r eval=FALSE}
@@ -14,7 +15,7 @@ cd BICCN_Challenge_2023
 pip install -r requirements.txt --user
 ```
 ## Prepare datasets
-1. Download multi-species' multi-omics datasets that were provided from BICCN committee using AWS CLI as follow:
+1. Download cross-species' multi-omics datasets that were provided from BICCN committee using AWS CLI as follow:
 ```{r eval=FALSE}
 aws s3 sync s3://biccn-challenge . --no-sign-request
 ```
