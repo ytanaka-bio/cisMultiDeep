@@ -32,6 +32,7 @@ wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_33/gencod
 wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M22/gencode.vM22.annotation.gtf.gz
 wget https://ftp.ensembl.org/pub/release-110/gtf/macaca_mulatta/Macaca_mulatta.Mmul_10.110.gtf.gz
 zcat Macaca_mulatta.Mmul_10.110.gtf.gz | sed -E 's/^(\w+)/chr\1"/g' > Macaque_gene.gtf
+rm Macaca_mulatta.Mmul_10.110.gtf.gz
 curl -OJX GET "https://api.ncbi.nlm.nih.gov/datasets/v2alpha/genome/accession/GCF_009663435.1/download?include_annotation_type=GENOME_GTF&filename=GCF_009663435.1.zip" -H "Accept: application/zip"
 unzip GCF_009663435.1.zip 
 sed -E 's/gene /gene_name /g' < ncbi_dataset/data/GCF_009663435.1/genomic.gtf > Marmoset_gene.gtf
