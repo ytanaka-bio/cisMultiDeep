@@ -92,4 +92,19 @@ python identify_celltype_methyl.py
 ```{r eval=FALSE}
 python identify_celltype_chromatin.py
 ```
-4. ee
+## Identification of converved peaks across species
+1. Download LiftOver UCSC Chain files
+```{r eval=FALSE}
+wget https://hgdownload.soe.ucsc.edu/goldenPath/mm10/liftOver/mm10ToHg38.over.chain.gz       #Mouse vs Human
+wget https://hgdownload.soe.ucsc.edu/goldenPath/mm10/liftOver/mm10ToRheMac10.over.chain.gz   #Mouse vs Macaque
+wget https://hgdownload.soe.ucsc.edu/goldenPath/mm10/liftOver/mm10ToCalJac4.over.chain.gz    #Mouse vs Marmoset
+```  
+2. Run LiftOver command to identify orthologous regions of Mouse ATAC peaks in other species' genomes.
+```{r eval=FALSE}
+liftOver Mouse_atac.bed mm10ToHg38.over.chain.gz Mouse_atac_Human.bed Mouse_atac_Human_unmapped.bed
+liftOver Mouse_atac.bed mm10ToRheMac10.over.chain.gz Mouse_atac_Macaque.bed Mouse_atac_Macaque_unmapped.bed
+liftOver Mouse_atac.bed mm10ToCalJac4.over.chain.gz Mouse_atac_Marmoset.bed Mouse_atac_Marmoset_unmapped.bed
+```
+3. ee
+
+5. ee
