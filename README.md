@@ -13,7 +13,7 @@ git clone https://github.com/ytanaka-bio/BICCN_Challenge_2023
 cd BICCN_Challenge_2023
 pip install -r requirements.txt --user
 ```
-## Preprocessing datasets
+## Downloading and Preprocessing datasets
 1. Download cross-species' multi-omics datasets that were provided from BICCN committee using AWS CLI as follow:
 ```{r eval=FALSE}
 aws s3 sync s3://biccn-challenge . --no-sign-request
