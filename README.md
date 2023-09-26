@@ -43,12 +43,15 @@ gzip snm3C/*/HiC_Loops/Sst.loop.bedpe
 ```{r eval=FALSE}
 #Human
 wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_33/gencode.v33.annotation.gtf.gz
+zcat gencode.v33.annotation.gtf.gz | grep gene_name | awk 'OFS="\t" {if ($3=="gene") {print $1,$4-1,$5,$14,$7}}' | tr -d '";' | sort -k1,1 -k2,2n -k3,3n > Human_gene.bed
+mv gencode.v33.annotation.gtf.gz Human_gene.gtf.gz
 
 #Macaque
 wget https://ftp.ensembl.org/pub/release-110/gtf/macaca_mulatta/Macaca_mulatta.Mmul_10.110.gtf.gz
 zcat Macaca_mulatta.Mmul_10.110.gtf.gz | sed -E 's/^(\w+)/chr\1/g' > Macaque_gene.gtf
 rm Macaca_mulatta.Mmul_10.110.gtf.gz
 grep gene_name Macaque_gene.gtf | awk 'OFS="\t" {if ($3=="gene") {print $1,$4-1,$5,$14,$7}}' | tr -d '";' | sort -k1,1 -k2,2n -k3,3n > Macaque_gene.bed
+gzip Macaque_gene.gtf 
 
 #Marmoset
 curl -OJX GET "https://api.ncbi.nlm.nih.gov/datasets/v2alpha/genome/accession/GCF_009663435.1/download?include_annotation_type=GENOME_GTF&filename=GCF_009663435.1.zip" -H "Accept: application/zip"
@@ -59,7 +62,8 @@ rm -rf ncbi_dataset/
 
 #Mouse
 wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M22/gencode.vM22.annotation.gtf.gz
-
+zcat gencode.vM22.annotation.gtf.gz | grep gene_name | awk 'OFS="\t" {if ($3=="gene") {print $1,$4-1,$5,$14,$7}}' | tr -d '";' | sort -k1,1 -k2,2n -k3,3n > Mouse_gene.bed
+mv gencode.vM22.annotation.gtf.gz Mouse_gene.gtf.gz
 ```
 
 4. Obtain orthologous gene list from [Biomart](http://useast.ensembl.org/biomart/martview) as follow:
