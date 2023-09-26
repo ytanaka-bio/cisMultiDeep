@@ -8,7 +8,6 @@ python = 3.10.2
 R = 4.0.6
 ```
 ## Requirement
-## Downloading
 ```{r eval=FALSE}
 git clone https://github.com/ytanaka-bio/BICCN_Challenge_2023
 cd BICCN_Challenge_2023
