@@ -18,18 +18,26 @@ pip install -r requirements.txt --user
 ```{r eval=FALSE}
 aws s3 sync s3://biccn-challenge . --no-sign-request
 ```
-2. Due to the limited number of HiC loops (<10,000 loops at least one species), four cell types (L5-ET, Pvalb-ChC, CLA, and Sncg) were removed from the subsequent analyses:
+2. Due to the data quality, four cell types (L5-ET, Pvalb-ChC, CLA, Sst, and Sncg) were removed from the subsequent analyses:
 ```{r eval=FALSE}
 gzip snm3C/*/HiC_Loops/L5-ET.loop.bedpe
 gzip snm3C/*/HiC_Loops/Pvalb-ChC.loop.bedpe
 gzip snm3C/*/HiC_Loops/CLA.loop.bedpe
 gzip snm3C/*/HiC_Loops/Sncg.loop.bedpe
+gzip snm3C/*/HiC_Loops/Sst.loop.bedpe
 ```
-3. Download genomic coordinate of genes with BED format using [UCSC Table Browser](https://genome.ucsc.edu/cgi-bin/hgTables) as follow:
-- Human: GRCh38/hg38, All GENCODE V33, Basic, genome (region) (save as `hg38_gene.bed`)
-- Macaque (Rhesus): Mmul_10/rheMac10, Ensembl Genes, ensGene, genome (region) (save as `rheMac10_gene.bed`) 
-- Marmoset: Callithrix_jacchus_cj1700_1.1/calJac4, NCBI RefSeq, RefSeq All, genome (region) (save as `calJac4_gene.bed`)
-- Mouse: GRCh38/mm10, All GENCODE VM22, Basic, genome (region) (save as `mm10_gene.bed`)
+3. Download genomic coordinate of genes with GTF format as follow:
+```{r eval=FALSE}
+wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_33/gencode.v33.annotation.gtf.gz
+wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M22/gencode.vM22.annotation.gtf.gz
+wget https://ftp.ensembl.org/pub/release-110/gtf/macaca_mulatta/Macaca_mulatta.Mmul_10.110.gtf.gz
+zcat Macaca_mulatta.Mmul_10.110.gtf.gz | sed -E 's/^(\w+)/chr\1"/g' > Macaque_gene.gtf
+curl -OJX GET "https://api.ncbi.nlm.nih.gov/datasets/v2alpha/genome/accession/GCF_009663435.1/download?include_annotation_type=GENOME_GTF&filename=GCF_009663435.1.zip" -H "Accept: application/zip"
+unzip GCF_009663435.1.zip 
+sed -E 's/gene /gene_name /g' < ncbi_dataset/data/GCF_009663435.1/genomic.gtf > Marmoset_gene.gtf
+rm GCF_009663435.1.zip
+rm -rf ncbi_dataset/
+```
 
 4. Obtain orthologous gene list from [Biomart](http://useast.ensembl.org/biomart/martview) as follow:
 - Choose "Ensembl Gene 10" and "Human genes (GRCh39.p14)"
