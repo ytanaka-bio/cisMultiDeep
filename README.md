@@ -1,6 +1,6 @@
 # BICCN_Challenge_2023
 ## Introduction
-This repository presents the workflow to identify functional enhancers for each annotated cell type from a diverse collection of multi-omics profiles. Here, we hypothesize that cell type is determined by a common set of genes, whose expression is regulated by highly-conserved enhancers across species. 
+This repository presents the workflow to identify functional enhancers for each annotated cell type from a diverse collection of multi-omics profiles (https://biccnchallenge.org/). Here, we hypothesize that cell type is determined by a common set of genes, whose expression is regulated by highly-conserved enhancers across species. 
 
 ## Environment
 ```{r eval=FALSE}
