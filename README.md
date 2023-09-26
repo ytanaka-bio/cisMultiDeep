@@ -25,6 +25,12 @@ gzip snm3C/*/HiC_Loops/Pvalb-ChC.loop.bedpe
 gzip snm3C/*/HiC_Loops/CLA.loop.bedpe
 gzip snm3C/*/HiC_Loops/Sncg.loop.bedpe
 ```
+3. Download genomic coordinate of genes with BED format using [UCSC Table Browser](https://genome.ucsc.edu/cgi-bin/hgTables) as follow:
+- Human: GRCh38/hg38, All GENCODE V33, Basic, genome (region) (save as `hg38_gene.bed`)
+- Macaque (Rhesus): Mmul_10/rheMac10, Ensembl Genes, ensGene, genome (region) (save as `rheMac10_gene.bed`) 
+- Marmoset: Callithrix_jacchus_cj1700_1.1/calJac4, NCBI RefSeq, RefSeq All, genome (region) (save as `calJac4_gene.bed`)
+- Mouse: GRCh38/mm10, All GENCODE VM22, Basic, genome (region) (save as `mm10_gene.bed`)
+
 4. Obtain orthologous gene list from [Biomart](http://useast.ensembl.org/biomart/martview) as follow:
 - Choose "Ensembl Gene 10" and "Human genes (GRCh39.p14)"
 - In Attributes section, choose "Homologues (Max select 6 orthologues)"
