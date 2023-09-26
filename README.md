@@ -26,7 +26,7 @@ stringr
 ```{r eval=FALSE}
 bedops/2.4.41
 ```
-## Downloading and Preprocessing datasets
+## Download and Preprocess datasets
 1. Download cross-species' multi-omics datasets that were provided from BICCN committee using AWS CLI as follow:
 ```{r eval=FALSE}
 aws s3 sync s3://biccn-challenge . --no-sign-request
