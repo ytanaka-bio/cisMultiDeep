@@ -18,7 +18,14 @@ pip install -r requirements.txt --user
 ```{r eval=FALSE}
 aws s3 sync s3://biccn-challenge . --no-sign-request
 ```
-2. Obtain orthologous gene list from [Biomart](http://useast.ensembl.org/biomart/martview) as follow:
+2. Due to the limited number of HiC loops (<10,000 loops), four cell types (L5-ET, Pvalb-ChC, CLA, and Sncg) were removed from the subsequent analyses:
+```{r eval=FALSE}
+gzip snm3C/*/HiC_Loops/L5-ET.loop.bedpe
+gzip snm3C/*/HiC_Loops/Pvalb-ChC.loop.bedpe
+gzip snm3C/*/HiC_Loops/CLA.loop.bedpe
+gzip snm3C/*/HiC_Loops/Sncg.loop.bedpe
+```
+4. Obtain orthologous gene list from [Biomart](http://useast.ensembl.org/biomart/martview) as follow:
 - Choose "Ensembl Gene 10" and "Human genes (GRCh39.p14)"
 - In Attributes section, choose "Homologues (Max select 6 orthologues)"
 - In GENE tab, choose "Gene stable ID" and "Gene name"
@@ -30,16 +37,18 @@ aws s3 sync s3://biccn-challenge . --no-sign-request
 ```{r eval=FALSE}
 R CMD BATCH get_cons_gene.R
 ```
-3. Calculate the cell type specificity score for each gene from transcriptome (RNA).
+
+## Calculate the cell type specificity score for each gene and peak
+1. Calculate the cell type specificity score for each gene from transcriptome (RNA).
 ```{r eval=FALSE}
 python identify_celltype_gene.py
 ```
-4. Calculate the cell type specificity score for each gene from methylome (mCG, mCH).
+2. Calculate the cell type specificity score for each gene from methylome (mCG, mCH).
 ```{r eval=FALSE}
 python identify_celltype_methyl.py
 ```
-5. Calculate the cell type specificity score for each peak from chromatin accessibility profiles (ATAC).
+3. Calculate the cell type specificity score for each peak from chromatin accessibility profiles (ATAC).
 ```{r eval=FALSE}
 python identify_celltype_chromatin.py
 ```
-6. ee
+4. ee
