@@ -31,4 +31,9 @@ aws s3 sync s3://biccn-challenge . --no-sign-request
 ```{r eval=FALSE}
 R CMD BATCH get_cons_gene.R
 ```
-3. 
+3. Rank genes by their cell type specificity from transcriptome (RNA) and methylome (mCG, mCH) profiles.
+```{r eval=FALSE}
+python identify_celltype_gene.py
+```
+
+4.
