@@ -25,7 +25,7 @@ stringr
 ### other softwares
 ```{r eval=FALSE}
 bedops/2.4.41
-kentutils/453
+kentutils
 ```
 ## Download and Preprocess datasets
 1. Download cross-species' multi-omics datasets that were provided from BICCN committee using AWS CLI as follow:
