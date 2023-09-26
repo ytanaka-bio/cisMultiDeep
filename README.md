@@ -18,7 +18,7 @@ pip install -r requirements.txt --user
 ```{r eval=FALSE}
 aws s3 sync s3://biccn-challenge . --no-sign-request
 ```
-2. Due to the data quality, four cell types (L5-ET, Pvalb-ChC, CLA, Sst, and Sncg) were removed from the subsequent analyses:
+2. Due to low quality of HiC data, four cell types (L5-ET, Pvalb-ChC, CLA, Sst, and Sncg) were removed from the subsequent analyses:
 ```{r eval=FALSE}
 gzip snm3C/*/HiC_Loops/L5-ET.loop.bedpe
 gzip snm3C/*/HiC_Loops/Pvalb-ChC.loop.bedpe
