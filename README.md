@@ -38,6 +38,7 @@ gzip snm3C/*/HiC_Loops/Pvalb-ChC.loop.bedpe
 gzip snm3C/*/HiC_Loops/CLA.loop.bedpe
 gzip snm3C/*/HiC_Loops/Sncg.loop.bedpe
 gzip snm3C/*/HiC_Loops/Sst.loop.bedpe
+gzip snm3C/*/HiC_Loops/Vsc.loop.bedpe
 ```
 3. Download gene coordinate GTF files and convert them into BED format as follow:
 ```{r eval=FALSE}
@@ -54,11 +55,9 @@ grep gene_name Macaque_gene.gtf | awk 'OFS="\t" {if ($3=="gene") {print $1,$4-1,
 gzip Macaque_gene.gtf 
 
 #Marmoset
-curl -OJX GET "https://api.ncbi.nlm.nih.gov/datasets/v2alpha/genome/accession/GCF_009663435.1/download?include_annotation_type=GENOME_GTF&filename=GCF_009663435.1.zip" -H "Accept: application/zip"
-unzip GCF_009663435.1.zip 
-sed -E 's/gene /gene_name /g' < ncbi_dataset/data/GCF_009663435.1/genomic.gtf > Marmoset_gene.gtf
-rm GCF_009663435.1.zip
-rm -rf ncbi_dataset/
+wget https://hgdownload.soe.ucsc.edu/goldenPath/calJac4/bigZips/genes/ncbiRefSeq.gtf.gz
+zcat ncbiRefSeq.gtf.gz | grep gene_name | awk 'OFS="\t" {if ($3=="transcript") {print $1,$4-1,$5,$14,$7}}' | tr -d '";' | sort -k1,1 -k2,2n -k3,3n > Marmoset_gene.bed
+mv ncbiRefSeq.gtf.gz Marmoset_gene.gtf.gz
 
 #Mouse
 wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M22/gencode.vM22.annotation.gtf.gz
