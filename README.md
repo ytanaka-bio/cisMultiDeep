@@ -30,15 +30,15 @@ aws s3 sync s3://biccn-challenge . --no-sign-request
 ```{r eval=FALSE}
 R CMD BATCH get_cons_gene.R
 ```
-3. Calculate the cell type specificity for each gene from transcriptome (RNA).
+3. Calculate the cell type specificity score for each gene from transcriptome (RNA).
 ```{r eval=FALSE}
 python identify_celltype_gene.py
 ```
-4. Calculate the cell type specificity for each gene from methylome (mCG, mCH).
+4. Calculate the cell type specificity score for each gene from methylome (mCG, mCH).
 ```{r eval=FALSE}
 python identify_celltype_methyl.py
 ```
-5. Calculate the cell type specificity for each peak from chromatin accessibility profiles (ATAC).
+5. Calculate the cell type specificity score for each peak from chromatin accessibility profiles (ATAC).
 ```{r eval=FALSE}
 python identify_celltype_chromatin.py
 ```
