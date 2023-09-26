@@ -18,7 +18,7 @@ pip install -r requirements.txt --user
 ```{r eval=FALSE}
 aws s3 sync s3://biccn-challenge . --no-sign-request
 ```
-2. Due to the limited number of HiC loops (<10,000 loops), four cell types (L5-ET, Pvalb-ChC, CLA, and Sncg) were removed from the subsequent analyses:
+2. Due to the limited number of HiC loops (<10,000 loops at least one species), four cell types (L5-ET, Pvalb-ChC, CLA, and Sncg) were removed from the subsequent analyses:
 ```{r eval=FALSE}
 gzip snm3C/*/HiC_Loops/L5-ET.loop.bedpe
 gzip snm3C/*/HiC_Loops/Pvalb-ChC.loop.bedpe
