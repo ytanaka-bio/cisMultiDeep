@@ -24,6 +24,7 @@ stringr
 ```
 ### other softwares
 ```{r eval=FALSE}
+AWS CLI
 bedops/2.4.41
 kentutils
 ```
