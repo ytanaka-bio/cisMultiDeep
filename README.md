@@ -24,8 +24,9 @@ stringr
 ```
 ### other softwares
 ```{r eval=FALSE}
-AWS CLI
+AWS CLI/6.0.4
 bedops/2.4.41
+bedtools/2.30.0
 kentutils
 ```
 ## Download and Preprocess datasets
