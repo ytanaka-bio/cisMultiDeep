@@ -27,7 +27,8 @@ pip install -r requirements.txt --user
 - [Bedtools](https://bedtools.readthedocs.io/en/latest/)
 - [Kentutils](https://hgdownload.soe.ucsc.edu/downloads.html#utilities_downloads)
 
-## Download and Preprocess datasets
+## Methods
+### Download and Preprocess datasets
 1. Download cross-species' multi-omics datasets that were provided from BICCN committee using AWS CLI as follow:
 ```{r eval=FALSE}
 aws s3 sync s3://biccn-challenge . --no-sign-request
@@ -75,11 +76,8 @@ mv gencode.vM22.annotation.gtf.gz Mouse_gene.gtf.gz
 - Click "Result"
 - Choose "compressed file (.gz)" in export all results, and click "GO"
 - Then, run a R script `get_cons_gene.R`,
-```{r eval=FALSE}
-R CMD BATCH get_cons_gene.R
-```
 
-## Calculate the cell type specificity score for each gene and peak
+### Calculate the cell type specificity score for each gene and peak
 1. Calculate the cell type specificity score for each gene from transcriptome (RNA).
 ```{r eval=FALSE}
 python identify_celltype_gene.py
@@ -92,7 +90,12 @@ python identify_celltype_methyl.py
 ```{r eval=FALSE}
 python identify_celltype_chromatin.py
 ```
-## Identification of converved peaks across species
+### Identification of conserved genes across species
+```{r eval=FALSE}
+R CMD BATCH get_cons_gene.R
+```
+
+### Identification of converved peaks across species
 1. Download LiftOver UCSC Chain files
 ```{r eval=FALSE}
 wget https://hgdownload.soe.ucsc.edu/goldenPath/mm10/liftOver/mm10ToHg38.over.chain.gz       #Mouse vs Human
