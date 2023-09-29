@@ -42,7 +42,7 @@ gzip snm3C/*/HiC_Loops/Sncg.loop.bedpe
 gzip snm3C/*/HiC_Loops/Sst.loop.bedpe
 gzip snm3C/*/HiC_Loops/Vsc.loop.bedpe
 ```
-1.3. Download gene coordinate GTF files and convert them into BED format as follow:
+1.3. Download gene coordinate GTF files as follow:
 ```{r eval=FALSE}
 #Human
 wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_33/gencode.v33.annotation.gtf.gz
