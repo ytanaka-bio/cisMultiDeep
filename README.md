@@ -28,12 +28,12 @@ pip install -r requirements.txt --user
 - [Kentutils](https://hgdownload.soe.ucsc.edu/downloads.html#utilities_downloads)
 
 ## Methods
-### Download and Preprocess datasets
-1. Download cross-species' multi-omics datasets that were provided from BICCN committee using AWS CLI as follow:
+### 1. Download and Preprocess datasets
+1.1. Download cross-species' multi-omics datasets that were provided from BICCN committee using AWS CLI as follow:
 ```{r eval=FALSE}
 aws s3 sync s3://biccn-challenge . --no-sign-request
 ```
-2. Due to low quality of HiC data, six cell types (L5-ET, Pvalb-ChC, CLA, Sncg, Sst, and Vsc) were removed from the subsequent analyses:
+1.2. Due to low quality of HiC data, six cell types (L5-ET, Pvalb-ChC, CLA, Sncg, Sst, and Vsc) were removed from the subsequent analyses:
 ```{r eval=FALSE}
 gzip snm3C/*/HiC_Loops/L5-ET.loop.bedpe
 gzip snm3C/*/HiC_Loops/Pvalb-ChC.loop.bedpe
@@ -42,7 +42,7 @@ gzip snm3C/*/HiC_Loops/Sncg.loop.bedpe
 gzip snm3C/*/HiC_Loops/Sst.loop.bedpe
 gzip snm3C/*/HiC_Loops/Vsc.loop.bedpe
 ```
-3. Download gene coordinate GTF files and convert them into BED format as follow:
+1.3. Download gene coordinate GTF files and convert them into BED format as follow:
 ```{r eval=FALSE}
 #Human
 wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_33/gencode.v33.annotation.gtf.gz
@@ -67,7 +67,7 @@ zcat gencode.vM22.annotation.gtf.gz | grep gene_name | awk 'OFS="\t" {if ($3=="g
 mv gencode.vM22.annotation.gtf.gz Mouse_gene.gtf.gz
 ```
 
-4. Obtain orthologous gene list from [Biomart](http://useast.ensembl.org/biomart/martview) as follow:
+1.4. Obtain orthologous gene list from [Biomart](http://useast.ensembl.org/biomart/martview) as follow:
 - Choose "Ensembl Gene 10" and "Human genes (GRCh39.p14)"
 - In Attributes section, choose "Homologues (Max select 6 orthologues)"
 - In GENE tab, choose "Gene stable ID" and "Gene name"
@@ -77,47 +77,47 @@ mv gencode.vM22.annotation.gtf.gz Mouse_gene.gtf.gz
 - Choose "compressed file (.gz)" in export all results, and click "GO"
 - Then, run a R script `get_cons_gene.R`,
 
-### Calculate the cell type specificity score for each gene and peak
-1. Calculate the cell type specificity score for each gene from transcriptome (RNA).
+### 2. Calculate the cell type specificity score for each gene and peak
+2.1. Calculate the cell type specificity score for each gene from transcriptome (RNA).
 ```{r eval=FALSE}
 python identify_celltype_gene.py
 ```
-2. Calculate the cell type specificity score for each gene from methylome (mCG, mCH).
+2.2. Calculate the cell type specificity score for each gene from methylome (mCG, mCH).
 ```{r eval=FALSE}
 python identify_celltype_methyl.py
 ```
-3. Calculate the cell type specificity score for each peak from chromatin accessibility profiles (ATAC).
+2.3. Calculate the cell type specificity score for each peak from chromatin accessibility profiles (ATAC).
 ```{r eval=FALSE}
 python identify_celltype_chromatin.py
 ```
-### Identification of conserved genes across species
+### 3. Identification of conserved genes across species
 ```{r eval=FALSE}
 R CMD BATCH get_cons_gene.R
 ```
 
-### Identification of converved peaks across species
-1. Download LiftOver UCSC Chain files
+### 4. Identification of converved peaks across species
+4.1. Download LiftOver UCSC Chain files
 ```{r eval=FALSE}
 wget https://hgdownload.soe.ucsc.edu/goldenPath/mm10/liftOver/mm10ToHg38.over.chain.gz       #Mouse vs Human
 wget https://hgdownload.soe.ucsc.edu/goldenPath/mm10/liftOver/mm10ToRheMac10.over.chain.gz   #Mouse vs Macaque
 wget https://hgdownload.soe.ucsc.edu/goldenPath/mm10/liftOver/mm10ToCalJac4.over.chain.gz    #Mouse vs Marmoset
 ```
-2. Generate BED format files of ATAC peaks
+4.2. Generate BED format files of ATAC peaks
 ```{r eval=FALSE}
 R CMD BATCH get_atac_bed.R
 ```
-3. Run LiftOver command to identify orthologous regions of Mouse ATAC peaks in other species' genomes.
+4.3. Run LiftOver command to identify orthologous regions of Mouse ATAC peaks in other species' genomes.
 ```{r eval=FALSE}
 liftOver Mouse_atac.bed mm10ToHg38.over.chain.gz Mouse_atac_Human.bed Mouse_atac_Human_unmapped.bed
 liftOver Mouse_atac.bed mm10ToRheMac10.over.chain.gz Mouse_atac_Macaque.bed Mouse_atac_Macaque_unmapped.bed
 liftOver Mouse_atac.bed mm10ToCalJac4.over.chain.gz Mouse_atac_Marmoset.bed Mouse_atac_Marmoset_unmapped.bed
 ```
-4. Run intersect command of BEDTools to identify ATAC peaks in each species corresponding to Mouse ATAC peaks. 
+4.4. Run intersect command of BEDTools to identify ATAC peaks in each species corresponding to Mouse ATAC peaks. 
 ```{r eval=FALSE}
 bedtools intersect -a Mouse_atac_Human.bed -b Human_atac.bed -wa -wb -f 0.5  > Mouse_atac_Human_overlap.bed
 bedtools intersect -a Mouse_atac_Macaque.bed -b Macaque_atac.bed -wa -wb -f 0.5  > Mouse_atac_Macaque_overlap.bed
 bedtools intersect -a Mouse_atac_Marmoset.bed -b Marmoset_atac.bed -wa -wb -f 0.5  > Mouse_atac_Marmoset_overlap.bed
 ```
-5. ee
+4.5. ee
 ## References
 [BICCN Challenge](https://biccnchallenge.org/)
