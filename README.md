@@ -16,18 +16,18 @@ pip install -r requirements.txt --user
 ```
 ### R libraries
 ```{r eval=FALSE}
-Seurat
-Matrix
-SpectralTAD
-HiCcompare
-stringr
+Seurat (https://satijalab.org/seurat/)
+Matrix (https://cran.r-project.org/web/packages/Matrix/index.html)
+SpectralTAD (https://bioconductor.org/packages/release/bioc/html/SpectralTAD.html)
+HiCcompare (https://www.bioconductor.org/packages/release/bioc/html/HiCcompare.html)
+stringr (https://cran.r-project.org/web/packages/stringr/vignettes/stringr.html)
 ```
 ### other softwares
 ```{r eval=FALSE}
-AWS CLI/6.0.4
-bedops/2.4.41
-bedtools/2.30.0
-kentutils
+AWS CLI/6.0.4 (https://aws.amazon.com/jp/cli/)
+bedops/2.4.41 (https://bedops.readthedocs.io/)
+bedtools/2.30.0 (https://bedtools.readthedocs.io/en/latest/)
+kentutils (https://hgdownload.soe.ucsc.edu/downloads.html#utilities_downloads)
 ```
 ## Download and Preprocess datasets
 1. Download cross-species' multi-omics datasets that were provided from BICCN committee using AWS CLI as follow:
