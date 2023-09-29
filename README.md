@@ -21,7 +21,7 @@ pip install -r requirements.txt --user
 - [HiCcompare](https://www.bioconductor.org/packages/release/bioc/html/HiCcompare.html)
 - [stringr](https://cran.r-project.org/web/packages/stringr/vignettes/stringr.html)
 
-### other softwares
+### Other softwares
 - [AWS CLI](https://aws.amazon.com/jp/cli/)
 - [Bedops](https://bedops.readthedocs.io/)
 - [Bedtools](https://bedtools.readthedocs.io/en/latest/)
