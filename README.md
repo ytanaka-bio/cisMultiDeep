@@ -33,16 +33,8 @@ pip install -r requirements.txt --user
 ```{r eval=FALSE}
 aws s3 sync s3://biccn-challenge . --no-sign-request
 ```
-1.2. Due to low quality of HiC data, six cell types (L5-ET, Pvalb-ChC, CLA, Sncg, Sst, and Vsc) were removed from the subsequent analyses:
-```{r eval=FALSE}
-gzip snm3C/*/HiC_Loops/L5-ET.loop.bedpe
-gzip snm3C/*/HiC_Loops/Pvalb-ChC.loop.bedpe
-gzip snm3C/*/HiC_Loops/CLA.loop.bedpe
-gzip snm3C/*/HiC_Loops/Sncg.loop.bedpe
-gzip snm3C/*/HiC_Loops/Sst.loop.bedpe
-gzip snm3C/*/HiC_Loops/Vsc.loop.bedpe
-```
-1.3. Download gene coordinate GTF files as follow:
+
+1.2. Download gene coordinate GTF files as follow:
 ```{r eval=FALSE}
 #Human
 wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_33/gencode.v33.annotation.gtf.gz
@@ -67,7 +59,7 @@ zcat gencode.vM22.annotation.gtf.gz | grep gene_name | awk 'OFS="\t" {if ($3=="g
 mv gencode.vM22.annotation.gtf.gz Mouse_gene.gtf.gz
 ```
 
-1.4. Obtain orthologous gene list from [Biomart](http://useast.ensembl.org/biomart/martview) as follow:
+1.3. Obtain orthologous gene list from [Biomart](http://useast.ensembl.org/biomart/martview) as follow:
 - Choose "Ensembl Gene 10" and "Human genes (GRCh39.p14)"
 - In Attributes section, choose "Homologues (Max select 6 orthologues)"
 - In GENE tab, choose "Gene stable ID" and "Gene name"
@@ -75,7 +67,6 @@ mv gencode.vM22.annotation.gtf.gz Mouse_gene.gtf.gz
 - In ORTHOLOGUES [U-Z] tab, choose "White-tufted-ear marmoset gene stable ID" and "White-tufted-ear marmoset gene name"
 - Click "Result"
 - Choose "compressed file (.gz)" in export all results, and click "GO"
-- Then, run a R script `get_cons_gene.R`,
 
 ### 2. Calculate the cell type specificity score for each gene and peak
 2.1. Calculate the cell type specificity score for each gene from transcriptome (RNA).
