@@ -17,8 +17,6 @@ pip install -r requirements.txt --user
 ### R libraries
 - [Seurat](https://satijalab.org/seurat/)
 - [Matrix](https://cran.r-project.org/web/packages/Matrix/index.html)
-- [SpectralTAD](https://bioconductor.org/packages/release/bioc/html/SpectralTAD.html)
-- [HiCcompare](https://www.bioconductor.org/packages/release/bioc/html/HiCcompare.html)
 - [stringr](https://cran.r-project.org/web/packages/stringr/vignettes/stringr.html)
 
 ### Other softwares
