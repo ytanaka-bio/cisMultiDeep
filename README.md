@@ -15,8 +15,6 @@ cd BICCN_Challenge_2023
 pip install -r requirements.txt --user
 ```
 ### R libraries
-- [Seurat](https://satijalab.org/seurat/)
-- [Matrix](https://cran.r-project.org/web/packages/Matrix/index.html)
 - [stringr](https://cran.r-project.org/web/packages/stringr/vignettes/stringr.html)
 
 ### Other softwares
