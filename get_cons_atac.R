@@ -17,7 +17,7 @@ rownames(Mouse_Marmoset) <- Mouse_Marmoset[,4]
 cons_atac <- intersect(rownames(Mouse_Human),rownames(Mouse_Macaque))
 cons_atac <- intersect(cons_atac,rownames(Mouse_Marmoset))
 cons_atac_list <- data.frame(Mouse=cons_atac,Human=Mouse_Human[cons_atac,8],Macaque=Mouse_Macaque[cons_atac,8],Marmoset=Mouse_Marmoset[cons_atac,8])
-write.table(cons_atac_list,'cons_atac_list.txt',sep="\t",quote=F,row.names=F)
+write.table(cons_atac_list,'cons_atac_list.csv',sep=",",quote=F,row.names=F)
 
 #max score
 max <- 300
