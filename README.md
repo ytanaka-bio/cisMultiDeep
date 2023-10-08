@@ -113,5 +113,40 @@ python feature_select.py -f snm3C/Mouse/Mouse_mCG_gene_fractions.h5ad snm3C/Huma
 python feature_select.py -f snm3C/Mouse/Mouse_mCH_gene_fractions.h5ad snm3C/Human/Human_mCH_gene_fractions.h5ad snm3C/Macaque/Maacque_mCH_gene_fractions.h5ad snm3C/Marmoset/Marmoset_mCH_gene_fractions.h5ad -d all_mCH_dif_cons.csv -a subclass_Bakken_2022 -r cons_mCH_list.csv -m LassoCV -o mCH_LassoCV -p 16 -n False
 ```
 
+## Tips
+The python script 'feature_select.py' identify genes/peaks that can determine cell types. The usage of this script is as follow:
+```{r eval=FALSE}
+python feature_select.py -h
+usage: feature_select.py [-h] [-g NUM_GENE]
+                         [-m {RFECVLinear,RFECVRandom,LassoCV,LassoLarsCV}]
+                         [-t {RandomForest,LinearRegress,skip}] [-l LAMDA]
+                         [-s RATIO_TEST] [-p THREAD] [-n [NORM]] -f H5AD_FILE
+                         [H5AD_FILE ...] -d DIF_FILE -a OBS_NAME -r ORTHO -o
+                         OUT_PREFIX
+
+Identify the best feature set that can explain cell type
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -g NUM_GENE           how many top and bottom genes are used? (default: 500)
+  -m {RFECVLinear,RFECVRandom,LassoCV,LassoLarsCV}
+                        A method for feature selection (default: LassoCV)
+  -t {RandomForest,LinearRegress,skip}
+                        A method to assess feature selection, if you do not
+                        want to test, please choose "skip" (default: skip)
+  -l LAMDA              Lamda value for Lasso (default: 0.1)
+  -s RATIO_TEST         ratio of test dataset (default: 0.2)
+  -p THREAD             Number of threads (default: 1)
+  -n [NORM]             Do normalization? (default: True)
+  -f H5AD_FILE [H5AD_FILE ...]
+                        H5AD file name (default: None)
+  -d DIF_FILE           File name of differential feature analysis (default:
+                        None)
+  -a OBS_NAME           Obs name including cell type information (default:
+                        None)
+  -r ORTHO              Orthologous feature file name (default: None)
+  -o OUT_PREFIX         Prefix of output file name (default: None)
+```
+
 ## References
 [BICCN Challenge](https://biccnchallenge.org/)
