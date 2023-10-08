@@ -105,6 +105,13 @@ bedtools intersect -a Mouse_atac_Human.bed -b Human_atac.bed -wa -wb -f 0.5  > M
 bedtools intersect -a Mouse_atac_Macaque.bed -b Macaque_atac.bed -wa -wb -f 0.5  > Mouse_atac_Macaque_overlap.bed
 bedtools intersect -a Mouse_atac_Marmoset.bed -b Marmoset_atac.bed -wa -wb -f 0.5  > Mouse_atac_Marmoset_overlap.bed
 ```
-4.5. ee
+4.5. Perform feature selection using a python script 'feature_select.py' for RNA, ATAC, mCG, and mCH profiles as follow:
+```{r eval=FALSE}
+python feature_select.py -f 10XMultiome/Mouse/Mouse_rna.h5ad 10XMultiome/Human/Human_rna.h5ad 10XMultiome/Macaque/Macaque_rna.h5ad 10XMultiome/Marmoset/Marmoset_rna.h5ad -d all_rna_dif_cons.csv -a subclass_Bakken_2022 -r cons_rna_list.csv -m LassoCV -o rna_LassoCV -p 16
+python feature_select.py -f 10XMultiome/Mouse/Mouse_atac.h5ad 10XMultiome/Human/Human_atac.h5ad 10XMultiome/Macaque/Macaque_atac.h5ad 10XMultiome/Marmoset/Marmoset_atac.h5ad -d all_atac_dif_cons.csv -a subclass_Bakken_2022 -r cons_atac_list.csv -m LassoCV -o atac_LassoCV -p 16
+python feature_select.py -f snm3C/Mouse/Mouse_mCG_gene_fractions.h5ad snm3C/Human/Human_mCG_gene_fractions.h5ad snm3C/Macaque/Macaque_mCG_gene_fractions.h5ad snm3C/Marmoset/Marmoset_mCG_gene_fractions.h5ad -d all_mCG_dif_cons.csv -a subclass_Bakken_2022 -r cons_mCG_list.csv -m LassoCV -o mCG_LassoCV -p 16 -n False
+python feature_select.py -f snm3C/Mouse/Mouse_mCH_gene_fractions.h5ad snm3C/Human/Human_mCH_gene_fractions.h5ad snm3C/Macaque/Maacque_mCH_gene_fractions.h5ad snm3C/Marmoset/Marmoset_mCH_gene_fractions.h5ad -d all_mCH_dif_cons.csv -a subclass_Bakken_2022 -r cons_mCH_list.csv -m LassoCV -o mCH_LassoCV -p 16 -n False
+```
+
 ## References
 [BICCN Challenge](https://biccnchallenge.org/)
