@@ -78,6 +78,7 @@ python identify_celltype_methyl.py
 python identify_celltype_chromatin.py
 ```
 ### 3. Identification of conserved genes across species
+3.1. Get conserved gene list using a R script `get_cons_gene.R`:
 ```{r eval=FALSE}
 R CMD BATCH get_cons_gene.R
 ```
@@ -105,7 +106,11 @@ bedtools intersect -a Mouse_atac_Human.bed -b Human_atac.bed -wa -wb -f 0.5  > M
 bedtools intersect -a Mouse_atac_Macaque.bed -b Macaque_atac.bed -wa -wb -f 0.5  > Mouse_atac_Macaque_overlap.bed
 bedtools intersect -a Mouse_atac_Marmoset.bed -b Marmoset_atac.bed -wa -wb -f 0.5  > Mouse_atac_Marmoset_overlap.bed
 ```
-4.5. Perform feature selection using a python script 'feature_select.py' for RNA, ATAC, mCG, and mCH profiles as follow:
+4.5. Get conserved gene list using a R script `get_cons_gene.R`:
+```{r eval=FALSE}
+R CMD BATCH get_cons_atac.R
+```
+4.6. Perform feature selection using a python script 'feature_select.py' for RNA, ATAC, mCG, and mCH profiles as follow:
 ```{r eval=FALSE}
 python feature_select.py -f 10XMultiome/Mouse/Mouse_rna.h5ad 10XMultiome/Human/Human_rna.h5ad 10XMultiome/Macaque/Macaque_rna.h5ad 10XMultiome/Marmoset/Marmoset_rna.h5ad -d all_rna_dif_cons.csv -a subclass_Bakken_2022 -r cons_rna_list.csv -m LassoCV -o rna_LassoCV -p 16
 python feature_select.py -f 10XMultiome/Mouse/Mouse_atac.h5ad 10XMultiome/Human/Human_atac.h5ad 10XMultiome/Macaque/Macaque_atac.h5ad 10XMultiome/Marmoset/Marmoset_atac.h5ad -d all_atac_dif_cons.csv -a subclass_Bakken_2022 -r cons_atac_list.csv -m LassoCV -o atac_LassoCV -p 16
