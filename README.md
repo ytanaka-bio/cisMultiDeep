@@ -106,7 +106,7 @@ bedtools intersect -a Mouse_atac_Human.bed -b Human_atac.bed -wa -wb -f 0.5  > M
 bedtools intersect -a Mouse_atac_Macaque.bed -b Macaque_atac.bed -wa -wb -f 0.5  > Mouse_atac_Macaque_overlap.bed
 bedtools intersect -a Mouse_atac_Marmoset.bed -b Marmoset_atac.bed -wa -wb -f 0.5  > Mouse_atac_Marmoset_overlap.bed
 ```
-4.5. Get conserved gene list using a R script `get_cons_gene.R`:
+4.5. Get conserved gene list using a R script `get_cons_atac.R`:
 ```{r eval=FALSE}
 R CMD BATCH get_cons_atac.R
 ```
