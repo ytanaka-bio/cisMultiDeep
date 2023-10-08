@@ -82,7 +82,7 @@ python identify_celltype_chromatin.py
 R CMD BATCH get_cons_gene.R
 ```
 
-### 4. Identification of converved peaks across species
+### 4. Identification of conserved peaks across species
 4.1. Download LiftOver UCSC Chain files
 ```{r eval=FALSE}
 wget https://hgdownload.soe.ucsc.edu/goldenPath/mm10/liftOver/mm10ToHg38.over.chain.gz       #Mouse vs Human
