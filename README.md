@@ -116,7 +116,6 @@ python feature_select.py -f snm3C/Mouse/Mouse_mCH_gene_fractions.h5ad snm3C/Huma
 ## Tips
 The python script 'feature_select.py' identify genes/peaks that can determine cell types. The usage of this script is as follow:
 ```{r eval=FALSE}
-python feature_select.py -h
 usage: feature_select.py [-h] [-g NUM_GENE]
                          [-m {RFECVLinear,RFECVRandom,LassoCV,LassoLarsCV}]
                          [-t {RandomForest,LinearRegress,skip}] [-l LAMDA]
