@@ -140,8 +140,8 @@ selected_features = []
 for x in celltype:
     print("Analyzing",x,"by",*args.method)
     Y[x][obs_data[args.obs_name[0]] == x] = 1
-    top_gene = df.sort_values(x,ascending=True).index[0:args.num_gene]
-    bottom_gene = df.sort_values(x,ascending=False).index[0:args.num_gene]
+    top_gene = df.sort_values(x,ascending=True).index[0:args.num_gene[0]]
+    bottom_gene = df.sort_values(x,ascending=False).index[0:args.num_gene[0]]
 
     combine_top = combine[top_gene]
     combine_bottom = combine[bottom_gene]
