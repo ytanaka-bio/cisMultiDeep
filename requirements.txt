@@ -2,6 +2,7 @@
 numpy
 pandas
 scanpy
+scipy
 matplotlib
 tensorflow
 shap
