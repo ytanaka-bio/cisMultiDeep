@@ -110,7 +110,7 @@ R CMD BATCH get_cons_data.R
 ```{r eval=FALSE}
 python prepare_dataset.py -f 10XMultiome/Mouse/Mouse_rna.h5ad 10XMultiome/Human/Human_rna.h5ad 10XMultiome/Macaque/Macaque_rna.h5ad 10XMultiome/Marmoset/Marmoset_rna.h5ad -d all_rna_dif_cons.csv -a subclass_Bakken_2022 -r cons_rna_list.csv -o rna_600 -g 600
 python prepare_dataset.py -f 10XMultiome/Mouse/Mouse_atac.h5ad 10XMultiome/Human/Human_atac.h5ad 10XMultiome/Macaque/Macaque_atac.h5ad 10XMultiome/Marmoset/Marmoset_atac.h5ad -d all_atac_dif_cons.csv -a subclass_Bakken_2022 -r cons_atac_list.csv -o atac_600 -g 600
-python prepare_dataset.py -f snm3C/Mouse/Mouse_mCG_gene_fractions.h5ad snm3C/Human/Human_mCG_gene_fractions.h5ad snm3C/Macaque/Macaque_mCG_gene_fractions.h5ad snm3C/Marmoset/Marmoset_mCG_gene_fractions.h5ad -d all_mCG_dif_cons.csv -a subclass_Bakken_2022 -r cons_mCG_list.csv -o mCG_600 -n False -g 600
+python prepare_dataset.py -f snm3C/Mouse/Mouse_mCG_gene_fractions.h5ad snm3C/Human/Human_mCG_gene_fractions.h5ad snm3C/Macaque/Macaque_mCG_gene_fractions.h5ad snm3C/Marmoset/Marmoset_mCG_gene_fractions.h5ad -d all_mCG_dif_cons.csv -a subclass_Bakken_2022 -r cons_mCG_list.csv -o mCG_600 -g 600 -n False
 python prepare_dataset.py -f snm3C/Mouse/Mouse_mCH_gene_fractions.h5ad snm3C/Human/Human_mCH_gene_fractions.h5ad snm3C/Macaque/Maacque_mCH_gene_fractions.h5ad snm3C/Marmoset/Marmoset_mCH_gene_fractions.h5ad -d all_mCH_dif_cons.csv -a subclass_Bakken_2022 -r cons_mCH_list.csv -o mCH_600 -g 600 -n False
 ```
 ### 5. Train Deep Learning model and calculate the contribution of each gene/peak to the segregation of cell types
