@@ -29,6 +29,8 @@ if args.method.__class__ != list:
     args.method = [args.method]
 if args.test.__class__ != list:
     args.test = [args.test]
+if args.num_gene.__class__ != list:
+    args.num_gene = [args.num_gene]
 
 #0.4Import modules
 import numpy as np
