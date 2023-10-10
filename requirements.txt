@@ -3,6 +3,9 @@ numpy
 pandas
 scanpy
 matplotlib
-scipy
+tensorflow
+shap
+keras
+keras_tuner
 
 ###### Requirements with Version Specifiers ######
