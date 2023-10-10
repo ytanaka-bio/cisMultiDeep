@@ -77,79 +77,45 @@ python identify_celltype_methyl.py
 ```{r eval=FALSE}
 python identify_celltype_chromatin.py
 ```
-### 3. Identification of conserved genes across species
-3.1. Get conserved gene list using a R script `get_cons_gene.R`:
-```{r eval=FALSE}
-R CMD BATCH get_cons_gene.R
-```
-
-### 4. Identification of conserved peaks across species
-4.1. Download LiftOver UCSC Chain files
+``
+### 3. Identification of conserved peaks across species
+3.1. Download LiftOver UCSC Chain files
 ```{r eval=FALSE}
 wget https://hgdownload.soe.ucsc.edu/goldenPath/mm10/liftOver/mm10ToHg38.over.chain.gz       #Mouse vs Human
 wget https://hgdownload.soe.ucsc.edu/goldenPath/mm10/liftOver/mm10ToRheMac10.over.chain.gz   #Mouse vs Macaque
 wget https://hgdownload.soe.ucsc.edu/goldenPath/mm10/liftOver/mm10ToCalJac4.over.chain.gz    #Mouse vs Marmoset
 ```
-4.2. Generate BED format files of ATAC peaks
+3.2. Generate BED format files of ATAC peaks
 ```{r eval=FALSE}
 R CMD BATCH get_atac_bed.R
 ```
-4.3. Run LiftOver command to identify orthologous regions of Mouse ATAC peaks in other species' genomes.
+3.3. Run LiftOver command to identify orthologous regions of Mouse ATAC peaks in other species' genomes.
 ```{r eval=FALSE}
 liftOver Mouse_atac.bed mm10ToHg38.over.chain.gz Mouse_atac_Human.bed Mouse_atac_Human_unmapped.bed
 liftOver Mouse_atac.bed mm10ToRheMac10.over.chain.gz Mouse_atac_Macaque.bed Mouse_atac_Macaque_unmapped.bed
 liftOver Mouse_atac.bed mm10ToCalJac4.over.chain.gz Mouse_atac_Marmoset.bed Mouse_atac_Marmoset_unmapped.bed
 ```
-4.4. Run intersect command of BEDTools to identify ATAC peaks in each species corresponding to Mouse ATAC peaks. 
+3.4. Run intersect command of BEDTools to identify ATAC peaks in each species corresponding to Mouse ATAC peaks. 
 ```{r eval=FALSE}
 bedtools intersect -a Mouse_atac_Human.bed -b Human_atac.bed -wa -wb -f 0.5  > Mouse_atac_Human_overlap.bed
 bedtools intersect -a Mouse_atac_Macaque.bed -b Macaque_atac.bed -wa -wb -f 0.5  > Mouse_atac_Macaque_overlap.bed
 bedtools intersect -a Mouse_atac_Marmoset.bed -b Marmoset_atac.bed -wa -wb -f 0.5  > Mouse_atac_Marmoset_overlap.bed
 ```
-4.5. Get conserved gene list using a R script `get_cons_atac.R`:
+### 4. Get the list and dataset of orthologous genes and peaks for Deep Learning
+4.1. Get conserved gene/peak list using a R script `get_cons_data.R`:
 ```{r eval=FALSE}
-R CMD BATCH get_cons_atac.R
+R CMD BATCH get_cons_data.R
 ```
-4.6. Perform feature selection using a python script 'feature_select.py' for RNA, ATAC, mCG, and mCH profiles as follow:
+4.2. Prepare input and output dataset for Deep Learning (Here, we focus on top 600 differential genes/peaks in each cell type)
 ```{r eval=FALSE}
-python feature_select.py -f 10XMultiome/Mouse/Mouse_rna.h5ad 10XMultiome/Human/Human_rna.h5ad 10XMultiome/Macaque/Macaque_rna.h5ad 10XMultiome/Marmoset/Marmoset_rna.h5ad -d all_rna_dif_cons.csv -a subclass_Bakken_2022 -r cons_rna_list.csv -m LassoCV -o rna_LassoCV -p 16
-python feature_select.py -f 10XMultiome/Mouse/Mouse_atac.h5ad 10XMultiome/Human/Human_atac.h5ad 10XMultiome/Macaque/Macaque_atac.h5ad 10XMultiome/Marmoset/Marmoset_atac.h5ad -d all_atac_dif_cons.csv -a subclass_Bakken_2022 -r cons_atac_list.csv -m LassoCV -o atac_LassoCV -p 16
-python feature_select.py -f snm3C/Mouse/Mouse_mCG_gene_fractions.h5ad snm3C/Human/Human_mCG_gene_fractions.h5ad snm3C/Macaque/Macaque_mCG_gene_fractions.h5ad snm3C/Marmoset/Marmoset_mCG_gene_fractions.h5ad -d all_mCG_dif_cons.csv -a subclass_Bakken_2022 -r cons_mCG_list.csv -m LassoCV -o mCG_LassoCV -p 16 -n False
-python feature_select.py -f snm3C/Mouse/Mouse_mCH_gene_fractions.h5ad snm3C/Human/Human_mCH_gene_fractions.h5ad snm3C/Macaque/Maacque_mCH_gene_fractions.h5ad snm3C/Marmoset/Marmoset_mCH_gene_fractions.h5ad -d all_mCH_dif_cons.csv -a subclass_Bakken_2022 -r cons_mCH_list.csv -m LassoCV -o mCH_LassoCV -p 16 -n False
+python prepare_dataset.py -f 10XMultiome/Mouse/Mouse_rna.h5ad 10XMultiome/Human/Human_rna.h5ad 10XMultiome/Macaque/Macaque_rna.h5ad 10XMultiome/Marmoset/Marmoset_rna.h5ad -d all_rna_dif_cons.csv -a subclass_Bakken_2022 -r cons_rna_list.csv -o rna_600 -g 600
+python prepare_dataset.py -f 10XMultiome/Mouse/Mouse_atac.h5ad 10XMultiome/Human/Human_atac.h5ad 10XMultiome/Macaque/Macaque_atac.h5ad 10XMultiome/Marmoset/Marmoset_atac.h5ad -d all_atac_dif_cons.csv -a subclass_Bakken_2022 -r cons_atac_list.csv -o atac_600 -g 600
+python prepare_dataset.py -f snm3C/Mouse/Mouse_mCG_gene_fractions.h5ad snm3C/Human/Human_mCG_gene_fractions.h5ad snm3C/Macaque/Macaque_mCG_gene_fractions.h5ad snm3C/Marmoset/Marmoset_mCG_gene_fractions.h5ad -d all_mCG_dif_cons.csv -a subclass_Bakken_2022 -r cons_mCG_list.csv -o mCG_600 -n False -g 600
+python prepare_dataset.py -f snm3C/Mouse/Mouse_mCH_gene_fractions.h5ad snm3C/Human/Human_mCH_gene_fractions.h5ad snm3C/Macaque/Maacque_mCH_gene_fractions.h5ad snm3C/Marmoset/Marmoset_mCH_gene_fractions.h5ad -d all_mCH_dif_cons.csv -a subclass_Bakken_2022 -r cons_mCH_list.csv -o mCH_600 -g 600 -n False
 ```
-
-## Tips
-The python script 'feature_select.py' identify genes/peaks that can determine cell types. The usage of this script is as follow:
+### 5. Train Deep Learning model and calculate the contribution of each gene/peak to the segregation of cell types
 ```{r eval=FALSE}
-usage: feature_select.py [-h] [-g NUM_GENE]
-                         [-m {RFECVLinear,RFECVRandom,LassoCV,LassoLarsCV}]
-                         [-t {RandomForest,LinearRegress,skip}] [-l LAMDA]
-                         [-s RATIO_TEST] [-p THREAD] [-n [NORM]] -f H5AD_FILE
-                         [H5AD_FILE ...] -d DIF_FILE -a OBS_NAME -r ORTHO -o
-                         OUT_PREFIX
 
-Identify the best feature set that can explain cell type
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -g NUM_GENE           how many top and bottom genes are used? (default: 500)
-  -m {RFECVLinear,RFECVRandom,LassoCV,LassoLarsCV}
-                        A method for feature selection (default: LassoCV)
-  -t {RandomForest,LinearRegress,skip}
-                        A method to assess feature selection, if you do not
-                        want to test, please choose "skip" (default: skip)
-  -l LAMDA              Lamda value for Lasso (default: 0.1)
-  -s RATIO_TEST         ratio of test dataset (default: 0.2)
-  -p THREAD             Number of threads (default: 1)
-  -n [NORM]             Do normalization? (default: True)
-  -f H5AD_FILE [H5AD_FILE ...]
-                        H5AD file name (default: None)
-  -d DIF_FILE           File name of differential feature analysis (default:
-                        None)
-  -a OBS_NAME           Obs name including cell type information (default:
-                        None)
-  -r ORTHO              Orthologous feature file name (default: None)
-  -o OUT_PREFIX         Prefix of output file name (default: None)
 ```
 
 ## References
