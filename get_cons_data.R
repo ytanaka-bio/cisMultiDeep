@@ -16,10 +16,10 @@ cons_rna_list <- mart[,c(6,2,4,8)]
 colnames(cons_rna_list) <- c("Mouse","Human","Macaque","Marmoset")
 
 #RNA
-Human_rna <- read.table("gene_expression/Human_rna_dif.csv",sep=',',header=T,row.names=1)
-Macaque_rna <- read.table("gene_expression/Macaque_rna_dif.csv",sep=',',header=T,row.names=1)
-Marmoset_rna <- read.table("gene_expression/Marmoset_rna_dif.csv",sep=',',header=T,row.names=1)
-Mouse_rna <- read.table("gene_expression/Mouse_rna_dif.csv",sep=',',header=T,row.names=1)
+Human_rna <- read.table("gene_expression/Human_rna_dif.csv",sep=',',header=T,row.names=1,check.names=F)
+Macaque_rna <- read.table("gene_expression/Macaque_rna_dif.csv",sep=',',header=T,row.names=1,check.names=F)
+Marmoset_rna <- read.table("gene_expression/Marmoset_rna_dif.csv",sep=',',header=T,row.names=1,check.names=F)
+Mouse_rna <- read.table("gene_expression/Mouse_rna_dif.csv",sep=',',header=T,row.names=1,check.names=F)
 
 #common celltype across species
 celltype_rna <- intersect(colnames(Human_rna),colnames(Macaque_rna))
@@ -57,10 +57,10 @@ cons_mCG_list <- mart[,c(6,2,4,8)]
 colnames(cons_mCG_list) <- c("Mouse","Human","Macaque","Marmoset")
 
 #mCG
-Human_mCG <- read.table("methylation/Human_mCG_dif.csv",sep=',',header=T,row.names=1)
-Macaque_mCG <- read.table("methylation/Macaque_mCG_dif.csv",sep=',',header=T,row.names=1)
-Marmoset_mCG <- read.table("methylation/Marmoset_mCG_dif.csv",sep=',',header=T,row.names=1)
-Mouse_mCG <- read.table("methylation/Mouse_mCG_dif.csv",sep=',',header=T,row.names=1)
+Human_mCG <- read.table("methylation/Human_mCG_dif.csv",sep=',',header=T,row.names=1,check.names=F)
+Macaque_mCG <- read.table("methylation/Macaque_mCG_dif.csv",sep=',',header=T,row.names=1,check.names=F)
+Marmoset_mCG <- read.table("methylation/Marmoset_mCG_dif.csv",sep=',',header=T,row.names=1,check.names=F)
+Mouse_mCG <- read.table("methylation/Mouse_mCG_dif.csv",sep=',',header=T,row.names=1,check.names=F)
 
 #common celltype across species
 celltype_mCG <- intersect(colnames(Human_mCG),colnames(Macaque_mCG))
@@ -98,10 +98,10 @@ cons_mCH_list <- mart[,c(6,2,4,8)]
 colnames(cons_mCH_list) <- c("Mouse","Human","Macaque","Marmoset")
 
 #mCH
-Human_mCH <- read.table("methylation/Human_mCH_dif.csv",sep=',',header=T,row.names=1)
-Macaque_mCH <- read.table("methylation/Macaque_mCH_dif.csv",sep=',',header=T,row.names=1)
-Marmoset_mCH <- read.table("methylation/Marmoset_mCH_dif.csv",sep=',',header=T,row.names=1)
-Mouse_mCH <- read.table("methylation/Mouse_mCH_dif.csv",sep=',',header=T,row.names=1)
+Human_mCH <- read.table("methylation/Human_mCH_dif.csv",sep=',',header=T,row.names=1,check.names=F)
+Macaque_mCH <- read.table("methylation/Macaque_mCH_dif.csv",sep=',',header=T,row.names=1,check.names=F)
+Marmoset_mCH <- read.table("methylation/Marmoset_mCH_dif.csv",sep=',',header=T,row.names=1,check.names=F)
+Mouse_mCH <- read.table("methylation/Mouse_mCH_dif.csv",sep=',',header=T,row.names=1,check.names=F)
 
 #common celltype across species
 celltype_mCH <- intersect(colnames(Human_mCH),colnames(Macaque_mCH))
@@ -155,10 +155,10 @@ cons_atac_list <- data.frame(Mouse=cons_atac,Human=Mouse_Human[cons_atac,8],Maca
 write.table(cons_atac_list,'cons_atac_list.csv',sep=",",quote=F,row.names=F)
 
 #Read cell type-specificity data of ATAC
-Human_atac <- read.csv("chromatin_access/Human_atac_dif.csv",header=T,row.names=1)
-Macaque_atac <- read.csv("chromatin_access/Macaque_atac_dif.csv",header=T,row.names=1)
-Marmoset_atac <- read.csv("chromatin_access/Marmoset_atac_dif.csv",header=T,row.names=1)
-Mouse_atac <- read.csv("chromatin_access/Mouse_atac_dif.csv",header=T,row.names=1)
+Human_atac <- read.csv("chromatin_access/Human_atac_dif.csv",header=T,row.names=1,check.names=F)
+Macaque_atac <- read.csv("chromatin_access/Macaque_atac_dif.csv",header=T,row.names=1,check.names=F)
+Marmoset_atac <- read.csv("chromatin_access/Marmoset_atac_dif.csv",header=T,row.names=1,check.names=F)
+Mouse_atac <- read.csv("chromatin_access/Mouse_atac_dif.csv",header=T,row.names=1,check.names=F)
 
 #common celltypes across species
 celltype_atac <- intersect(colnames(Human_atac),colnames(Mouse_atac))
