@@ -154,7 +154,86 @@ python DeepSHAP.py -i mCH_600_input.csv -p mCH_600_output.csv -o mCH_600_deep -t
 ```{r eval=FALSE}
 R CMD BATCH prepare_bed.R
 ```
+```{r eval=FALSE}
+#Human
+bedtools intersect -a snm3C/Human/HiC_Loops/Astro.loop.bedpe -b Human_atac_600.bed Human_rna_600.bed Human_mCG_600.bed Human_mCH_600.bed -wa -wb > Human_Astro_inLoop.txt
+bedtools intersect -a snm3C/Human/HiC_Loops/CLA.loop.bedpe -b Human_atac_600.bed Human_rna_600.bed Human_mCG_600.bed Human_mCH_600.bed -wa -wb > Human_CLA_inLoop.txt
+bedtools intersect -a snm3C/Human/HiC_Loops/L23.loop.bedpe -b Human_atac_600.bed Human_rna_600.bed Human_mCG_600.bed Human_mCH_600.bed -wa -wb > Human_L23_inLoop.txt
+bedtools intersect -a snm3C/Human/HiC_Loops/L5-ET.loop.bedpe -b Human_atac_600.bed Human_rna_600.bed Human_mCG_600.bed Human_mCH_600.bed -wa -wb > Human_L5-ET_inLoop.txt
+bedtools intersect -a snm3C/Human/HiC_Loops/L5-IT.loop.bedpe -b Human_atac_600.bed Human_rna_600.bed Human_mCG_600.bed Human_mCH_600.bed -wa -wb > Human_L5-IT_inLoop.txt
+bedtools intersect -a snm3C/Human/HiC_Loops/NP.loop.bedpe -b Human_atac_600.bed Human_rna_600.bed Human_mCG_600.bed Human_mCH_600.bed -wa -wb > Human_NP_inLoop.txt
+bedtools intersect -a snm3C/Human/HiC_Loops/L6-CT.loop.bedpe -b Human_atac_600.bed Human_rna_600.bed Human_mCG_600.bed Human_mCH_600.bed -wa -wb > Human_L6-CT_inLoop.txt
+bedtools intersect -a snm3C/Human/HiC_Loops/L6-IT.loop.bedpe -b Human_atac_600.bed Human_rna_600.bed Human_mCG_600.bed Human_mCH_600.bed -wa -wb > Human_L6-IT_inLoop.txt
+bedtools intersect -a snm3C/Human/HiC_Loops/L6b.loop.bedpe -b Human_atac_600.bed Human_rna_600.bed Human_mCG_600.bed Human_mCH_600.bed -wa -wb > Human_L6b_inLoop.txt
+bedtools intersect -a snm3C/Human/HiC_Loops/Lamp5.loop.bedpe -b Human_atac_600.bed Human_rna_600.bed Human_mCG_600.bed Human_mCH_600.bed -wa -wb > Human_Lamp5_inLoop.txt
+bedtools intersect -a snm3C/Human/HiC_Loops/MG.loop.bedpe -b Human_atac_600.bed Human_rna_600.bed Human_mCG_600.bed Human_mCH_600.bed -wa -wb > Human_MG_inLoop.txt
+bedtools intersect -a snm3C/Human/HiC_Loops/ODC.loop.bedpe -b Human_atac_600.bed Human_rna_600.bed Human_mCG_600.bed Human_mCH_600.bed -wa -wb > Human_ODC_inLoop.txt
+bedtools intersect -a snm3C/Human/HiC_Loops/OPC.loop.bedpe -b Human_atac_600.bed Human_rna_600.bed Human_mCG_600.bed Human_mCH_600.bed -wa -wb > Human_OPC_inLoop.txt
+bedtools intersect -a snm3C/Human/HiC_Loops/Pvalb-BC.loop.bedpe -b Human_atac_600.bed Human_rna_600.bed Human_mCG_600.bed Human_mCH_600.bed -wa -wb > Human_Pvalb-BC_inLoop.txt
+bedtools intersect -a snm3C/Human/HiC_Loops/Sncg.loop.bedpe -b Human_atac_600.bed Human_rna_600.bed Human_mCG_600.bed Human_mCH_600.bed -wa -wb > Human_Sncg_inLoop.txt
+bedtools intersect -a snm3C/Human/HiC_Loops/Sst.loop.bedpe -b Human_atac_600.bed Human_rna_600.bed Human_mCG_600.bed Human_mCH_600.bed -wa -wb > Human_Sst_inLoop.txt
+bedtools intersect -a snm3C/Human/HiC_Loops/Vip.loop.bedpe -b Human_atac_600.bed Human_rna_600.bed Human_mCG_600.bed Human_mCH_600.bed -wa -wb > Human_Vip_inLoop.txt
+bedtools intersect -a snm3C/Human/HiC_Loops/Vsc.loop.bedpe -b Human_atac_600.bed Human_rna_600.bed Human_mCG_600.bed Human_mCH_600.bed -wa -wb > Human_Vsc_inLoop.txt
 
+#Macaque
+bedtools intersect -a snm3C/Macaque2/HiC_Loops/Astro.loop.bedpe -b Macaque_atac_600.bed Macaque_rna_600.bed Macaque_mCG_600.bed Macaque_mCH_600.bed -wa -wb > Macaque_Astro_inLoop.txt
+bedtools intersect -a snm3C/Macaque2/HiC_Loops/CLA.loop.bedpe -b Macaque_atac_600.bed Macaque_rna_600.bed Macaque_mCG_600.bed Macaque_mCH_600.bed -wa -wb > Macaque_CLA_inLoop.txt
+bedtools intersect -a snm3C/Macaque2/HiC_Loops/L23.loop.bedpe -b Macaque_atac_600.bed Macaque_rna_600.bed Macaque_mCG_600.bed Macaque_mCH_600.bed -wa -wb > Macaque_L23_inLoop.txt
+bedtools intersect -a snm3C/Macaque2/HiC_Loops/L5-ET.loop.bedpe -b Macaque_atac_600.bed Macaque_rna_600.bed Macaque_mCG_600.bed Macaque_mCH_600.bed -wa -wb > Macaque_L5-ET_inLoop.txt
+bedtools intersect -a snm3C/Macaque2/HiC_Loops/L5-IT.loop.bedpe -b Macaque_atac_600.bed Macaque_rna_600.bed Macaque_mCG_600.bed Macaque_mCH_600.bed -wa -wb > Macaque_L5-IT_inLoop.txt
+bedtools intersect -a snm3C/Macaque2/HiC_Loops/NP.loop.bedpe -b Macaque_atac_600.bed Macaque_rna_600.bed Macaque_mCG_600.bed Macaque_mCH_600.bed -wa -wb > Macaque_NP_inLoop.txt
+bedtools intersect -a snm3C/Macaque2/HiC_Loops/L6-CT.loop.bedpe -b Macaque_atac_600.bed Macaque_rna_600.bed Macaque_mCG_600.bed Macaque_mCH_600.bed -wa -wb > Macaque_L6-CT_inLoop.txt
+bedtools intersect -a snm3C/Macaque2/HiC_Loops/L6-IT.loop.bedpe -b Macaque_atac_600.bed Macaque_rna_600.bed Macaque_mCG_600.bed Macaque_mCH_600.bed -wa -wb > Macaque_L6-IT_inLoop.txt
+bedtools intersect -a snm3C/Macaque2/HiC_Loops/L6b.loop.bedpe -b Macaque_atac_600.bed Macaque_rna_600.bed Macaque_mCG_600.bed Macaque_mCH_600.bed -wa -wb > Macaque_L6b_inLoop.txt
+bedtools intersect -a snm3C/Macaque2/HiC_Loops/Lamp5.loop.bedpe -b Macaque_atac_600.bed Macaque_rna_600.bed Macaque_mCG_600.bed Macaque_mCH_600.bed -wa -wb > Macaque_Lamp5_inLoop.txt
+bedtools intersect -a snm3C/Macaque2/HiC_Loops/MG.loop.bedpe -b Macaque_atac_600.bed Macaque_rna_600.bed Macaque_mCG_600.bed Macaque_mCH_600.bed -wa -wb > Macaque_MG_inLoop.txt
+bedtools intersect -a snm3C/Macaque2/HiC_Loops/ODC.loop.bedpe -b Macaque_atac_600.bed Macaque_rna_600.bed Macaque_mCG_600.bed Macaque_mCH_600.bed -wa -wb > Macaque_ODC_inLoop.txt
+bedtools intersect -a snm3C/Macaque2/HiC_Loops/OPC.loop.bedpe -b Macaque_atac_600.bed Macaque_rna_600.bed Macaque_mCG_600.bed Macaque_mCH_600.bed -wa -wb > Macaque_OPC_inLoop.txt
+bedtools intersect -a snm3C/Macaque2/HiC_Loops/Pvalb-BC.loop.bedpe -b Macaque_atac_600.bed Macaque_rna_600.bed Macaque_mCG_600.bed Macaque_mCH_600.bed -wa -wb > Macaque_Pvalb-BC_inLoop.txt
+bedtools intersect -a snm3C/Macaque2/HiC_Loops/Sncg.loop.bedpe -b Macaque_atac_600.bed Macaque_rna_600.bed Macaque_mCG_600.bed Macaque_mCH_600.bed -wa -wb > Macaque_Sncg_inLoop.txt
+bedtools intersect -a snm3C/Macaque2/HiC_Loops/Sst.loop.bedpe -b Macaque_atac_600.bed Macaque_rna_600.bed Macaque_mCG_600.bed Macaque_mCH_600.bed -wa -wb > Macaque_Sst_inLoop.txt
+bedtools intersect -a snm3C/Macaque2/HiC_Loops/Vip.loop.bedpe -b Macaque_atac_600.bed Macaque_rna_600.bed Macaque_mCG_600.bed Macaque_mCH_600.bed -wa -wb > Macaque_Vip_inLoop.txt
+bedtools intersect -a snm3C/Macaque2/HiC_Loops/Vsc.loop.bedpe -b Macaque_atac_600.bed Macaque_rna_600.bed Macaque_mCG_600.bed Macaque_mCH_600.bed -wa -wb > Macaque_Vsc_inLoop.txt
 
+#Marmoset
+bedtools intersect -a snm3C/Marmoset/HiC_Loops/Astro.loop.bedpe -b Marmoset_atac_600.bed Marmoset_rna_600.bed Marmoset_mCG_600.bed Marmoset_mCH_600.bed -wa -wb > Marmoset_Astro_inLoop.txt
+bedtools intersect -a snm3C/Marmoset/HiC_Loops/CLA.loop.bedpe -b Marmoset_atac_600.bed Marmoset_rna_600.bed Marmoset_mCG_600.bed Marmoset_mCH_600.bed -wa -wb > Marmoset_CLA_inLoop.txt
+bedtools intersect -a snm3C/Marmoset/HiC_Loops/L23.loop.bedpe -b Marmoset_atac_600.bed Marmoset_rna_600.bed Marmoset_mCG_600.bed Marmoset_mCH_600.bed -wa -wb > Marmoset_L23_inLoop.txt
+bedtools intersect -a snm3C/Marmoset/HiC_Loops/L5-ET.loop.bedpe -b Marmoset_atac_600.bed Marmoset_rna_600.bed Marmoset_mCG_600.bed Marmoset_mCH_600.bed -wa -wb > Marmoset_L5-ET_inLoop.txt
+bedtools intersect -a snm3C/Marmoset/HiC_Loops/L5-IT.loop.bedpe -b Marmoset_atac_600.bed Marmoset_rna_600.bed Marmoset_mCG_600.bed Marmoset_mCH_600.bed -wa -wb > Marmoset_L5-IT_inLoop.txt
+bedtools intersect -a snm3C/Marmoset/HiC_Loops/NP.loop.bedpe -b Marmoset_atac_600.bed Marmoset_rna_600.bed Marmoset_mCG_600.bed Marmoset_mCH_600.bed -wa -wb > Marmoset_NP_inLoop.txt
+bedtools intersect -a snm3C/Marmoset/HiC_Loops/L6-CT.loop.bedpe -b Marmoset_atac_600.bed Marmoset_rna_600.bed Marmoset_mCG_600.bed Marmoset_mCH_600.bed -wa -wb > Marmoset_L6-CT_inLoop.txt
+bedtools intersect -a snm3C/Marmoset/HiC_Loops/L6-IT.loop.bedpe -b Marmoset_atac_600.bed Marmoset_rna_600.bed Marmoset_mCG_600.bed Marmoset_mCH_600.bed -wa -wb > Marmoset_L6-IT_inLoop.txt
+bedtools intersect -a snm3C/Marmoset/HiC_Loops/L6b.loop.bedpe -b Marmoset_atac_600.bed Marmoset_rna_600.bed Marmoset_mCG_600.bed Marmoset_mCH_600.bed -wa -wb > Marmoset_L6b_inLoop.txt
+bedtools intersect -a snm3C/Marmoset/HiC_Loops/Lamp5.loop.bedpe -b Marmoset_atac_600.bed Marmoset_rna_600.bed Marmoset_mCG_600.bed Marmoset_mCH_600.bed -wa -wb > Marmoset_Lamp5_inLoop.txt
+bedtools intersect -a snm3C/Marmoset/HiC_Loops/MG.loop.bedpe -b Marmoset_atac_600.bed Marmoset_rna_600.bed Marmoset_mCG_600.bed Marmoset_mCH_600.bed -wa -wb > Marmoset_MG_inLoop.txt
+bedtools intersect -a snm3C/Marmoset/HiC_Loops/ODC.loop.bedpe -b Marmoset_atac_600.bed Marmoset_rna_600.bed Marmoset_mCG_600.bed Marmoset_mCH_600.bed -wa -wb > Marmoset_ODC_inLoop.txt
+bedtools intersect -a snm3C/Marmoset/HiC_Loops/OPC.loop.bedpe -b Marmoset_atac_600.bed Marmoset_rna_600.bed Marmoset_mCG_600.bed Marmoset_mCH_600.bed -wa -wb > Marmoset_OPC_inLoop.txt
+bedtools intersect -a snm3C/Marmoset/HiC_Loops/Pvalb-BC.loop.bedpe -b Marmoset_atac_600.bed Marmoset_rna_600.bed Marmoset_mCG_600.bed Marmoset_mCH_600.bed -wa -wb > Marmoset_Pvalb-BC_inLoop.txt
+bedtools intersect -a snm3C/Marmoset/HiC_Loops/Sncg.loop.bedpe -b Marmoset_atac_600.bed Marmoset_rna_600.bed Marmoset_mCG_600.bed Marmoset_mCH_600.bed -wa -wb > Marmoset_Sncg_inLoop.txt
+bedtools intersect -a snm3C/Marmoset/HiC_Loops/Sst.loop.bedpe -b Marmoset_atac_600.bed Marmoset_rna_600.bed Marmoset_mCG_600.bed Marmoset_mCH_600.bed -wa -wb > Marmoset_Sst_inLoop.txt
+bedtools intersect -a snm3C/Marmoset/HiC_Loops/Vip.loop.bedpe -b Marmoset_atac_600.bed Marmoset_rna_600.bed Marmoset_mCG_600.bed Marmoset_mCH_600.bed -wa -wb > Marmoset_Vip_inLoop.txt
+bedtools intersect -a snm3C/Marmoset/HiC_Loops/Vsc.loop.bedpe -b Marmoset_atac_600.bed Marmoset_rna_600.bed Marmoset_mCG_600.bed Marmoset_mCH_600.bed -wa -wb > Marmoset_Vsc_inLoop.txt
+
+#Mouse
+bedtools intersect -a snm3C/Mouse/HiC_Loops/Astro.loop.bedpe -b Mouse_atac_600.bed Mouse_rna_600.bed Mouse_mCG_600.bed Mouse_mCH_600.bed -wa -wb > Mouse_Astro_inLoop.txt
+bedtools intersect -a snm3C/Mouse/HiC_Loops/CLA.loop.bedpe -b Mouse_atac_600.bed Mouse_rna_600.bed Mouse_mCG_600.bed Mouse_mCH_600.bed -wa -wb > Mouse_CLA_inLoop.txt
+bedtools intersect -a snm3C/Mouse/HiC_Loops/L23.loop.bedpe -b Mouse_atac_600.bed Mouse_rna_600.bed Mouse_mCG_600.bed Mouse_mCH_600.bed -wa -wb > Mouse_L23_inLoop.txt
+bedtools intersect -a snm3C/Mouse/HiC_Loops/L5-ET.loop.bedpe -b Mouse_atac_600.bed Mouse_rna_600.bed Mouse_mCG_600.bed Mouse_mCH_600.bed -wa -wb > Mouse_L5-ET_inLoop.txt
+bedtools intersect -a snm3C/Mouse/HiC_Loops/L5-IT.loop.bedpe -b Mouse_atac_600.bed Mouse_rna_600.bed Mouse_mCG_600.bed Mouse_mCH_600.bed -wa -wb > Mouse_L5-IT_inLoop.txt
+bedtools intersect -a snm3C/Mouse/HiC_Loops/NP.loop.bedpe -b Mouse_atac_600.bed Mouse_rna_600.bed Mouse_mCG_600.bed Mouse_mCH_600.bed -wa -wb > Mouse_NP_inLoop.txt
+bedtools intersect -a snm3C/Mouse/HiC_Loops/L6-CT.loop.bedpe -b Mouse_atac_600.bed Mouse_rna_600.bed Mouse_mCG_600.bed Mouse_mCH_600.bed -wa -wb > Mouse_L6-CT_inLoop.txt
+bedtools intersect -a snm3C/Mouse/HiC_Loops/L6-IT.loop.bedpe -b Mouse_atac_600.bed Mouse_rna_600.bed Mouse_mCG_600.bed Mouse_mCH_600.bed -wa -wb > Mouse_L6-IT_inLoop.txt
+bedtools intersect -a snm3C/Mouse/HiC_Loops/L6b.loop.bedpe -b Mouse_atac_600.bed Mouse_rna_600.bed Mouse_mCG_600.bed Mouse_mCH_600.bed -wa -wb > Mouse_L6b_inLoop.txt
+bedtools intersect -a snm3C/Mouse/HiC_Loops/Lamp5.loop.bedpe -b Mouse_atac_600.bed Mouse_rna_600.bed Mouse_mCG_600.bed Mouse_mCH_600.bed -wa -wb > Mouse_Lamp5_inLoop.txt
+bedtools intersect -a snm3C/Mouse/HiC_Loops/MG.loop.bedpe -b Mouse_atac_600.bed Mouse_rna_600.bed Mouse_mCG_600.bed Mouse_mCH_600.bed -wa -wb > Mouse_MG_inLoop.txt
+bedtools intersect -a snm3C/Mouse/HiC_Loops/ODC.loop.bedpe -b Mouse_atac_600.bed Mouse_rna_600.bed Mouse_mCG_600.bed Mouse_mCH_600.bed -wa -wb > Mouse_ODC_inLoop.txt
+bedtools intersect -a snm3C/Mouse/HiC_Loops/OPC.loop.bedpe -b Mouse_atac_600.bed Mouse_rna_600.bed Mouse_mCG_600.bed Mouse_mCH_600.bed -wa -wb > Mouse_OPC_inLoop.txt
+bedtools intersect -a snm3C/Mouse/HiC_Loops/Pvalb-BC.loop.bedpe -b Mouse_atac_600.bed Mouse_rna_600.bed Mouse_mCG_600.bed Mouse_mCH_600.bed -wa -wb > Mouse_Pvalb-BC_inLoop.txt
+bedtools intersect -a snm3C/Mouse/HiC_Loops/Sncg.loop.bedpe -b Mouse_atac_600.bed Mouse_rna_600.bed Mouse_mCG_600.bed Mouse_mCH_600.bed -wa -wb > Mouse_Sncg_inLoop.txt
+bedtools intersect -a snm3C/Mouse/HiC_Loops/Sst.loop.bedpe -b Mouse_atac_600.bed Mouse_rna_600.bed Mouse_mCG_600.bed Mouse_mCH_600.bed -wa -wb > Mouse_Sst_inLoop.txt
+bedtools intersect -a snm3C/Mouse/HiC_Loops/Vip.loop.bedpe -b Mouse_atac_600.bed Mouse_rna_600.bed Mouse_mCG_600.bed Mouse_mCH_600.bed -wa -wb > Mouse_Vip_inLoop.txt
+bedtools intersect -a snm3C/Mouse/HiC_Loops/Vsc.loop.bedpe -b Mouse_atac_600.bed Mouse_rna_600.bed Mouse_mCG_600.bed Mouse_mCH_600.bed -wa -wb > Mouse_Vsc_inLoop.txt
+```
 ## References
 [BICCN Challenge](https://biccnchallenge.org/)
