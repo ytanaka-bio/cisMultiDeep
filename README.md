@@ -54,8 +54,11 @@ wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M22/gencode
 zcat gencode.vM22.annotation.gtf.gz | grep gene_name | awk 'OFS="\t" {if ($3=="gene") {print $1,$4-1,$5,$14,$7}}' | tr -d '";' | sort -k1,1 -k2,2n -k3,3n > Mouse_gene.bed
 mv gencode.vM22.annotation.gtf.gz Mouse_gene.gtf.gz
 ```
-
-1.3. Obtain orthologous gene list from [Biomart](http://useast.ensembl.org/biomart/martview) as follow:
+1.3. Remove duplicated genes from BED file
+```{r eval=FALSE}
+R CMD BATCH remove_duplicate_gene_bed.R
+```
+1.4. Obtain orthologous gene list from [Biomart](http://useast.ensembl.org/biomart/martview) as follow:
 - Choose "Ensembl Gene 10" and "Human genes (GRCh39.p14)"
 - In Attributes section, choose "Homologues (Max select 6 orthologues)"
 - In GENE tab, choose "Gene stable ID" and "Gene name"
@@ -113,10 +116,15 @@ python prepare_dataset.py -f 10XMultiome/Mouse/Mouse_atac.h5ad 10XMultiome/Human
 python prepare_dataset.py -f snm3C/Mouse/Mouse_mCG_gene_fractions.h5ad snm3C/Human/Human_mCG_gene_fractions.h5ad snm3C/Macaque/Macaque_mCG_gene_fractions.h5ad snm3C/Marmoset/Marmoset_mCG_gene_fractions.h5ad -d all_mCG_dif_cons.csv -a subclass_Bakken_2022 -r cons_mCG_list.csv -o mCG_600 -g 600 -n False
 python prepare_dataset.py -f snm3C/Mouse/Mouse_mCH_gene_fractions.h5ad snm3C/Human/Human_mCH_gene_fractions.h5ad snm3C/Macaque/Maacque_mCH_gene_fractions.h5ad snm3C/Marmoset/Marmoset_mCH_gene_fractions.h5ad -d all_mCH_dif_cons.csv -a subclass_Bakken_2022 -r cons_mCH_list.csv -o mCH_600 -g 600 -n False
 ```
-### 5. Train Deep Learning model and calculate the contribution of each gene/peak to the segregation of cell types
+### 5. Train Deep Learning model and calculate the contribution (SHAP value) of each gene/peak to the segregation of cell types
 ```{r eval=FALSE}
-
+python DeepSHAP.py -i rna_600_input.csv -p rna_600_output.csv -o rna_600_deep -t 12
+python DeepSHAP.py -i atac_600_input.csv -p atac_600_output.csv -o atac_600_deep -t 12
+python DeepSHAP.py -i mCG_600_input.csv -p mCG_600_output.csv -o mCG_600_deep -t 12
+python DeepSHAP.py -i mCH_600_input.csv -p mCH_600_output.csv -o mCH_600_deep -t 12
 ```
+### 6. 
+
 
 ## References
 [BICCN Challenge](https://biccnchallenge.org/)
