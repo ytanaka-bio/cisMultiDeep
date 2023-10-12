@@ -29,8 +29,32 @@ pip install -r requirements.txt --user
 ```{r eval=FALSE}
 aws s3 sync s3://biccn-challenge . --no-sign-request
 ```
-
-1.2. Download gene coordinate GTF files as follow:
+1.2. Add "chr" into Macaque bedpe files
+```{r eval=FALSE}
+mkdir snm3C/Macaque2
+mkdir snm3C/Macaque2/HiC_Loops
+awk 'OFS="\t" {$1="chr"$1; $4="chr"$4; print}' snm3C/Macaque/HiC_Loops/Astro.loop.bedpe > snm3C/Macaque2/HiC_Loops/Astro.loop.bedpe 
+awk 'OFS="\t" {$1="chr"$1; $4="chr"$4; print}' snm3C/Macaque/HiC_Loops/CLA.loop.bedpe > snm3C/Macaque2/HiC_Loops/CLA.loop.bedpe 
+awk 'OFS="\t" {$1="chr"$1; $4="chr"$4; print}' snm3C/Macaque/HiC_Loops/L23.loop.bedpe > snm3C/Macaque2/HiC_Loops/L23.loop.bedpe 
+awk 'OFS="\t" {$1="chr"$1; $4="chr"$4; print}' snm3C/Macaque/HiC_Loops/L4.loop.bedpe > snm3C/Macaque2/HiC_Loops/L4.loop.bedpe 
+awk 'OFS="\t" {$1="chr"$1; $4="chr"$4; print}' snm3C/Macaque/HiC_Loops/L5-ET.loop.bedpe > snm3C/Macaque2/HiC_Loops/L5-ET.loop.bedpe 
+awk 'OFS="\t" {$1="chr"$1; $4="chr"$4; print}' snm3C/Macaque/HiC_Loops/L5-IT.loop.bedpe > snm3C/Macaque2/HiC_Loops/L5-IT.loop.bedpe 
+awk 'OFS="\t" {$1="chr"$1; $4="chr"$4; print}' snm3C/Macaque/HiC_Loops/L6b.loop.bedpe > snm3C/Macaque2/HiC_Loops/L6b.loop.bedpe 
+awk 'OFS="\t" {$1="chr"$1; $4="chr"$4; print}' snm3C/Macaque/HiC_Loops/L6-CT.loop.bedpe > snm3C/Macaque2/HiC_Loops/L6-CT.loop.bedpe 
+awk 'OFS="\t" {$1="chr"$1; $4="chr"$4; print}' snm3C/Macaque/HiC_Loops/L6-IT.loop.bedpe > snm3C/Macaque2/HiC_Loops/L6-IT.loop.bedpe 
+awk 'OFS="\t" {$1="chr"$1; $4="chr"$4; print}' snm3C/Macaque/HiC_Loops/Lamp5.loop.bedpe > snm3C/Macaque2/HiC_Loops/Lamp5.loop.bedpe 
+awk 'OFS="\t" {$1="chr"$1; $4="chr"$4; print}' snm3C/Macaque/HiC_Loops/MG.loop.bedpe > snm3C/Macaque2/HiC_Loops/MG.loop.bedpe 
+awk 'OFS="\t" {$1="chr"$1; $4="chr"$4; print}' snm3C/Macaque/HiC_Loops/NP.loop.bedpe > snm3C/Macaque2/HiC_Loops/NP.loop.bedpe 
+awk 'OFS="\t" {$1="chr"$1; $4="chr"$4; print}' snm3C/Macaque/HiC_Loops/ODC.loop.bedpe > snm3C/Macaque2/HiC_Loops/ODC.loop.bedpe 
+awk 'OFS="\t" {$1="chr"$1; $4="chr"$4; print}' snm3C/Macaque/HiC_Loops/OPC.loop.bedpe > snm3C/Macaque2/HiC_Loops/OPC.loop.bedpe 
+awk 'OFS="\t" {$1="chr"$1; $4="chr"$4; print}' snm3C/Macaque/HiC_Loops/Pvalb-BC.loop.bedpe > snm3C/Macaque2/HiC_Loops/Pvalb-BC.loop.bedpe 
+awk 'OFS="\t" {$1="chr"$1; $4="chr"$4; print}' snm3C/Macaque/HiC_Loops/Pvalb-ChC.loop.bedpe > snm3C/Macaque2/HiC_Loops/Pvalb-ChC.loop.bedpe 
+awk 'OFS="\t" {$1="chr"$1; $4="chr"$4; print}' snm3C/Macaque/HiC_Loops/Sncg.loop.bedpe > snm3C/Macaque2/HiC_Loops/Sncg.loop.bedpe 
+awk 'OFS="\t" {$1="chr"$1; $4="chr"$4; print}' snm3C/Macaque/HiC_Loops/Sst.loop.bedpe > snm3C/Macaque2/HiC_Loops/Sst.loop.bedpe 
+awk 'OFS="\t" {$1="chr"$1; $4="chr"$4; print}' snm3C/Macaque/HiC_Loops/Vip.loop.bedpe > snm3C/Macaque2/HiC_Loops/Vip.loop.bedpe 
+awk 'OFS="\t" {$1="chr"$1; $4="chr"$4; print}' snm3C/Macaque/HiC_Loops/Vsc.loop.bedpe > snm3C/Macaque2/HiC_Loops/Vsc.loop.bedpe
+```
+1.3. Download gene coordinate GTF files as follow:
 ```{r eval=FALSE}
 #Human
 wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_33/gencode.v33.annotation.gtf.gz
@@ -54,11 +78,11 @@ wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M22/gencode
 zcat gencode.vM22.annotation.gtf.gz | grep gene_name | awk 'OFS="\t" {if ($3=="gene") {print $1,$4-1,$5,$14,$7}}' | tr -d '";' | sort -k1,1 -k2,2n -k3,3n > Mouse_gene.bed
 mv gencode.vM22.annotation.gtf.gz Mouse_gene.gtf.gz
 ```
-1.3. Remove duplicated genes from BED file
+1.4. Remove duplicated genes from BED file
 ```{r eval=FALSE}
 R CMD BATCH remove_duplicate_gene_bed.R
 ```
-1.4. Obtain orthologous gene list from [Biomart](http://useast.ensembl.org/biomart/martview) as follow:
+1.5. Obtain orthologous gene list from [Biomart](http://useast.ensembl.org/biomart/martview) as follow:
 - Choose "Ensembl Gene 10" and "Human genes (GRCh39.p14)"
 - In Attributes section, choose "Homologues (Max select 6 orthologues)"
 - In GENE tab, choose "Gene stable ID" and "Gene name"
