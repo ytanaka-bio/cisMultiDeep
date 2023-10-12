@@ -116,14 +116,19 @@ python prepare_dataset.py -f 10XMultiome/Mouse/Mouse_atac.h5ad 10XMultiome/Human
 python prepare_dataset.py -f snm3C/Mouse/Mouse_mCG_gene_fractions.h5ad snm3C/Human/Human_mCG_gene_fractions.h5ad snm3C/Macaque/Macaque_mCG_gene_fractions.h5ad snm3C/Marmoset/Marmoset_mCG_gene_fractions.h5ad -d all_mCG_dif_cons.csv -a subclass_Bakken_2022 -r cons_mCG_list.csv -o mCG_600 -g 600 -n False
 python prepare_dataset.py -f snm3C/Mouse/Mouse_mCH_gene_fractions.h5ad snm3C/Human/Human_mCH_gene_fractions.h5ad snm3C/Macaque/Maacque_mCH_gene_fractions.h5ad snm3C/Marmoset/Marmoset_mCH_gene_fractions.h5ad -d all_mCH_dif_cons.csv -a subclass_Bakken_2022 -r cons_mCH_list.csv -o mCH_600 -g 600 -n False
 ```
-### 5. Train Deep Learning model and calculate the contribution (SHAP value) of each gene/peak to the segregation of cell types
+### 5. Deep learning and SHAP value calculation
+5.1. Train Deep learning model and calculate the contribution (SHAP value) of each gene/peak to the segregation of cell types
 ```{r eval=FALSE}
 python DeepSHAP.py -i rna_600_input.csv -p rna_600_output.csv -o rna_600_deep -t 12
 python DeepSHAP.py -i atac_600_input.csv -p atac_600_output.csv -o atac_600_deep -t 12
 python DeepSHAP.py -i mCG_600_input.csv -p mCG_600_output.csv -o mCG_600_deep -t 12
 python DeepSHAP.py -i mCH_600_input.csv -p mCH_600_output.csv -o mCH_600_deep -t 12
 ```
-### 6. 
+### 6. Identify peaks and genes within the same HiC loop
+6.1. Prepare gene and peak BED file for 600 differential genes/peaks
+```{r eval=FALSE}
+R CMD BATCH prepare_bed.R
+```
 
 
 ## References
