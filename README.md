@@ -30,7 +30,7 @@ pip install -r requirements.txt --user
 ```{r eval=FALSE}
 aws s3 sync s3://biccn-challenge . --no-sign-request
 ```
-1.2. Add "chr" into Macaque bedpe files
+1.2. Add "chr" into Macaque bedpe files:
 ```{r eval=FALSE}
 mkdir snm3C/Macaque2
 mkdir snm3C/Macaque2/HiC_Loops
@@ -79,7 +79,7 @@ wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M22/gencode
 zcat gencode.vM22.annotation.gtf.gz | grep gene_name | awk 'OFS="\t" {if ($3=="gene") {print $1,$4-1,$5,$14,$7}}' | tr -d '";' | sort -k1,1 -k2,2n -k3,3n > Mouse_gene.bed
 mv gencode.vM22.annotation.gtf.gz Mouse_gene.gtf.gz
 ```
-1.4. Remove duplicated genes from BED file
+1.4. Remove duplicated genes from BED file:
 ```{r eval=FALSE}
 R CMD BATCH remove_duplicate_gene_bed.R
 ```
@@ -93,37 +93,37 @@ R CMD BATCH remove_duplicate_gene_bed.R
 - Choose "compressed file (.gz)" in export all results, and click "GO"
 
 ### 2. Calculate the cell type specificity score for each gene and peak
-2.1. Calculate the cell type specificity score for each gene from transcriptome (RNA).
+2.1. Calculate the cell type specificity score for each gene from transcriptome (RNA):
 ```{r eval=FALSE}
 python identify_celltype_gene.py
 ```
-2.2. Calculate the cell type specificity score for each gene from methylome (mCG, mCH).
+2.2. Calculate the cell type specificity score for each gene from methylome (mCG, mCH):
 ```{r eval=FALSE}
 python identify_celltype_methyl.py
 ```
-2.3. Calculate the cell type specificity score for each peak from chromatin accessibility profiles (ATAC).
+2.3. Calculate the cell type specificity score for each peak from chromatin accessibility profiles (ATAC):
 ```{r eval=FALSE}
 python identify_celltype_chromatin.py
 ```
 ``
 ### 3. Identification of conserved peaks across species
-3.1. Download LiftOver UCSC Chain files
+3.1. Download LiftOver UCSC Chain files:
 ```{r eval=FALSE}
 wget https://hgdownload.soe.ucsc.edu/goldenPath/mm10/liftOver/mm10ToHg38.over.chain.gz       #Mouse vs Human
 wget https://hgdownload.soe.ucsc.edu/goldenPath/mm10/liftOver/mm10ToRheMac10.over.chain.gz   #Mouse vs Macaque
 wget https://hgdownload.soe.ucsc.edu/goldenPath/mm10/liftOver/mm10ToCalJac4.over.chain.gz    #Mouse vs Marmoset
 ```
-3.2. Generate BED format files of ATAC peaks
+3.2. Generate BED format files of ATAC peaks:
 ```{r eval=FALSE}
 R CMD BATCH get_atac_bed.R
 ```
-3.3. Run LiftOver command to identify orthologous regions of Mouse ATAC peaks in other species' genomes.
+3.3. Run LiftOver command to identify orthologous regions of Mouse ATAC peaks in other species' genomes:
 ```{r eval=FALSE}
 liftOver Mouse_atac.bed mm10ToHg38.over.chain.gz Mouse_atac_Human.bed Mouse_atac_Human_unmapped.bed
 liftOver Mouse_atac.bed mm10ToRheMac10.over.chain.gz Mouse_atac_Macaque.bed Mouse_atac_Macaque_unmapped.bed
 liftOver Mouse_atac.bed mm10ToCalJac4.over.chain.gz Mouse_atac_Marmoset.bed Mouse_atac_Marmoset_unmapped.bed
 ```
-3.4. Run intersect command of BEDTools to identify ATAC peaks in each species corresponding to Mouse ATAC peaks. 
+3.4. Run intersect command of BEDTools to identify ATAC peaks in each species corresponding to Mouse ATAC peaks:
 ```{r eval=FALSE}
 bedtools intersect -a Mouse_atac_Human.bed -b Human_atac.bed -wa -wb -f 0.5  > Mouse_atac_Human_overlap.bed
 bedtools intersect -a Mouse_atac_Macaque.bed -b Macaque_atac.bed -wa -wb -f 0.5  > Mouse_atac_Macaque_overlap.bed
@@ -134,7 +134,7 @@ bedtools intersect -a Mouse_atac_Marmoset.bed -b Marmoset_atac.bed -wa -wb -f 0.
 ```{r eval=FALSE}
 R CMD BATCH get_cons_data.R
 ```
-4.2. Prepare input and output dataset for Deep Learning (Here, we focus on top 600 differential genes/peaks in each cell type)
+4.2. Prepare input and output dataset for Deep Learning (Here, we focus on top 600 differential genes/peaks in each cell type):
 ```{r eval=FALSE}
 python prepare_dataset.py -f 10XMultiome/Mouse/Mouse_rna.h5ad 10XMultiome/Human/Human_rna.h5ad 10XMultiome/Macaque/Macaque_rna.h5ad 10XMultiome/Marmoset/Marmoset_rna.h5ad -d all_rna_dif_cons.csv -a subclass_Bakken_2022 -r cons_rna_list.csv -o rna_600 -g 600
 python prepare_dataset.py -f 10XMultiome/Mouse/Mouse_atac.h5ad 10XMultiome/Human/Human_atac.h5ad 10XMultiome/Macaque/Macaque_atac.h5ad 10XMultiome/Marmoset/Marmoset_atac.h5ad -d all_atac_dif_cons.csv -a subclass_Bakken_2022 -r cons_atac_list.csv -o atac_600 -g 600
@@ -142,7 +142,7 @@ python prepare_dataset.py -f snm3C/Mouse/Mouse_mCG_gene_fractions.h5ad snm3C/Hum
 python prepare_dataset.py -f snm3C/Mouse/Mouse_mCH_gene_fractions.h5ad snm3C/Human/Human_mCH_gene_fractions.h5ad snm3C/Macaque/Maacque_mCH_gene_fractions.h5ad snm3C/Marmoset/Marmoset_mCH_gene_fractions.h5ad -d all_mCH_dif_cons.csv -a subclass_Bakken_2022 -r cons_mCH_list.csv -o mCH_600 -g 600 -n False
 ```
 ### 5. Deep learning and SHAP value calculation
-5.1. Train Deep learning model and calculate the contribution (SHAP value) of each gene/peak to the segregation of cell types
+5.1. Train Deep learning model and calculate the contribution (SHAP value) of each gene/peak to the segregation of cell types:
 ```{r eval=FALSE}
 python DeepSHAP.py -i rna_600_input.csv -p rna_600_output.csv -o rna_600_deep -t 12
 python DeepSHAP.py -i atac_600_input.csv -p atac_600_output.csv -o atac_600_deep -t 12
@@ -150,10 +150,11 @@ python DeepSHAP.py -i mCG_600_input.csv -p mCG_600_output.csv -o mCG_600_deep -t
 python DeepSHAP.py -i mCH_600_input.csv -p mCH_600_output.csv -o mCH_600_deep -t 12
 ```
 ### 6. Identify peaks and genes within the same HiC loop
-6.1. Prepare gene and peak BED file for 600 differential genes/peaks
+6.1. Prepare gene and peak BED file for 600 differential genes/peaks:
 ```{r eval=FALSE}
 R CMD BATCH prepare_bed.R
 ```
+6.2. Identify genes and peaks within each HiC loop:
 ```{r eval=FALSE}
 #Human
 bedtools intersect -a snm3C/Human/HiC_Loops/Astro.loop.bedpe -b Human_atac_600.bed Human_rna_600.bed Human_mCG_600.bed Human_mCH_600.bed -wa -wb > Human_Astro_inLoop.txt
