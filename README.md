@@ -1,7 +1,7 @@
 # cisMultiDeep: Identifying Cell Type-Specific Cis-Regulatory Regions by Automatically-Tuned Deep Neural Network and SHAP
 
 ## Introduction
-This repository presents the workflow to identify functional enhancers for each annotated cell type from a diverse collection of multi-omics profiles. Here, we hypothesize that cell type is determined by a common set of genes, whose expression is regulated by highly-conserved cis-regulatory regions across species. 
+This repository presents the workflow to identify functional enhancers for each annotated cell type from a diverse collection of multi-omics profiles. The cell type is determined by expression of a specific set of genes that are governed by cis-regulatory elements in non-coding genomic regions. Here, we hypothesize that this cis-regulatory region-mediated gene regulation is evolutionarily conserved, and aim to identify the set of cis regulatory regions that control the transcription of cell type-specific genes using cross-species single-cell multiomics datasets and deep learning approaches.
 
 ## Environment
 ```{r eval=FALSE}
