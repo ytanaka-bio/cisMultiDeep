@@ -484,5 +484,9 @@ bedtools pairtobed -a snm3C/Mouse/HiC_Loops/Sst.loop.bedpe -b Mouse_mCH_600.bed 
 bedtools pairtobed -a snm3C/Mouse/HiC_Loops/Vip.loop.bedpe -b Mouse_mCH_600.bed > inLoop/Mouse_Vip.loop_mCH.txt
 bedtools pairtobed -a snm3C/Mouse/HiC_Loops/Vsc.loop.bedpe -b Mouse_mCH_600.bed > inLoop/Mouse_Vsc.loop_mCH.txt
 ```
+6.3. Calculate the sum of SHAP values of the connected genes by HiC loops.
+```
+R CMD BATCH all_sum_SHAP.R
+```
 ## References
 [BICCN Challenge](https://biccnchallenge.org/)
