@@ -105,7 +105,6 @@ python identify_celltype_methyl.py
 ```{r eval=FALSE}
 python identify_celltype_chromatin.py
 ```
-``
 ### 3. Identification of conserved peaks across species
 3.1. Download LiftOver UCSC Chain files:
 ```{r eval=FALSE}
