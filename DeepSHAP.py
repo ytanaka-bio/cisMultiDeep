@@ -15,12 +15,14 @@ parser = argparse.ArgumentParser(description='Run deep learning classifier',form
 parser.add_argument('-i',nargs=1,help='data filename',type=argparse.FileType('r'),dest="data_file",required=True)
 parser.add_argument('-p',nargs=1,help='phenotype filename',type=argparse.FileType('r'),dest="phenotype_file",required=True)
 parser.add_argument('-o',nargs=1,help='output prefix (<prefix>_test.csv (with -l option), <prefix>_predict.csv (with -l option), <prefix>_result.csv, and <prefix>_model/)',type=str,dest="out_file",required=True)
-parser.add_argument('-c', help='Scale input data?',nargs = "?", default=True,dest="scale")
+parser.add_argument('-c', help='Scale input data?',nargs = "?", default=False,dest="scale")
 parser.add_argument('-v', help='ratio of validation dataset', default=0.2, type=float, dest="ratio_val")
 parser.add_argument('-s', help='ratio of test dataset', default=0.2, type=float, dest="ratio_test")
 parser.add_argument('-e', help='epoch',type=int, default=10,dest='epoch')
 parser.add_argument('-x', help="Max trial",type=int, default=50,dest="max_trial")
 parser.add_argument('-l', help='Evaluate model?',action='store_true',default=False,dest="eval")
+parser.add_argument('-r', help='Do dimentional reduction?',action='store_true',default=True,dest="reduce_dim")
+parser.add_argument('-a', help="How many principal component do you use?",default=200,dest="pc")
 parser.add_argument('-n', help='Size of background dataset',type=int, default=1000,dest="size")
 parser.add_argument('-m', help='metrics',default='accuracy',type=str,dest="metrics")
 parser.add_argument('-u', help='activation function in output layer', nargs=1,type=str,default='softmax',dest="act_out")
@@ -48,6 +50,7 @@ from tensorflow.keras.models import Model
 from sklearn.model_selection import train_test_split
 import keras_tuner as kt
 from keras.models import load_model
+import sklearn.datasets, sklearn.decomposition
 
 #1 define functions
 #1.1. deep learning model
@@ -91,12 +94,22 @@ def df_to_dataset(dataframe, dindex, feature, batch_size=2048):
 #2.1. read files
 #2.1.1. data file
 print("Read",args.data_file[0])
-dataframe = pd.read_csv(args.data_file[0],index_col=0)
+raw = pd.read_csv(args.data_file[0],index_col=0)
+
 if args.scale == True:
-  dataframe = dataframe.apply(zscore)
+  print("Z-score normalization")
+  raw = raw.apply(zscore)
+
+if args.reduce_dim == True:
+  print("Dimentional reduction by PCA")
+  pca = sklearn.decomposition.PCA()
+  pca.fit(raw)
+  dataframe = pca.transform(raw)[:,:args.pc]
+  dataframe = pd.DataFrame(dataframe,index=raw.index)
+else:
+  dataframe = raw
 
 dindex = dataframe.columns
-reduced_dim = len(dindex)
 output = args.out_file[0]
 
 #2.1.2. phenotype or model file
@@ -153,7 +166,7 @@ print("Calculate SHAP values")
 output4 = output + "_expected.csv"
 background = X_train2.iloc[np.random.choice(X_train2.shape[0], args.size, replace=False)]
 explainer = shap.DeepExplainer(model,np.array(background))
-shap_values = explainer.shap_values(np.array(dataframe))
+shap_values = explainer.shap_values(np.array(background))
 #expected_value = explainer.expected_value
 #expected_value = pd.DataFrame(expected_value)
 #expected_value.to_csv(output4)
@@ -161,10 +174,16 @@ shap_values = explainer.shap_values(np.array(dataframe))
 print("Calculate mean abolute SHAP values")
 output6 = output + "_meanshap.csv"
 shap_values = np.absolute(shap_values)
-mean_shap = pd.DataFrame(0, index=dindex,columns=pheno)
+mean_shap = pd.DataFrame(0, index=raw.columns,columns=pheno)
 for i in range(0,len(pheno)):
-  df = pd.DataFrame(shap_values[i],columns=dindex)
-  mean_shap.iloc[:,i] = mean_shap.iloc[:,i] + df.sum()
+  df = pd.DataFrame(shap_values[i],columns=dataframe.columns)
+  if args.reduce_dim == True:
+        loading = pca.components_.T * np.sqrt(pca.explained_variance_)
+        load_df = pd.DataFrame(loading,index = raw.columns)
+        load_shap = load_df.iloc[:,:args.pc] * df.sum()
+        mean_shap.iloc[:,i] = mean_shap.iloc[:,i] + load_shap.sum(axis=1)
+  else:
+        mean_shap.iloc[:,i] = mean_shap.iloc[:,i] + df.sum()
 
 mean_shap = mean_shap / args.size
 mean_shap.to_csv(output6)

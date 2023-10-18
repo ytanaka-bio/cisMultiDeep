@@ -167,20 +167,6 @@ celltype_atac <- intersect(celltype_atac,colnames(Marmoset_atac))
 celltype_atac <- intersect(celltype_atac,colnames(Mouse_atac))
 celltype_atac <- sort(celltype_atac)
 
-#Focus on conserved peaks
-Human_atac_cons <- Human_atac[cons_atac_list[,2],celltype_atac]
-Macaque_atac_cons <- Macaque_atac[cons_atac_list[,3],celltype_atac]
-Marmoset_atac_cons <- Marmoset_atac[cons_atac_list[,4],celltype_atac]
-Mouse_atac_cons <- Mouse_atac[cons_atac_list[,1],celltype_atac]
-Human_atac_cons[Human_atac_cons > max] <- max
-Human_atac_cons[Human_atac_cons < -1*max] <- -1*max
-Macaque_atac_cons[Macaque_atac_cons > max] <- max
-Macaque_atac_cons[Macaque_atac_cons < -1*max] <- -1*max
-Marmoset_atac_cons[Marmoset_atac_cons > max] <- max
-Marmoset_atac_cons[Marmoset_atac_cons < -1*max] <- -1*max
-Mouse_atac_cons[Mouse_atac_cons > max] <- max
-Mouse_atac_cons[Mouse_atac_cons < -1*max] <- -1*max
-
 #get common celltypes and genes
 celltype <- intersect(celltype_rna,celltype_mCG)
 celltype <- intersect(celltype,celltype_mCH)
@@ -208,10 +194,10 @@ Macaque_mCH_cons <- Macaque_mCH_cons[cons_mCH_list[,3],celltype]
 Marmoset_mCH_cons <- Marmoset_mCH_cons[cons_mCH_list[,4],celltype]
 Mouse_mCH_cons <- Mouse_mCH_cons[cons_mCH_list[,1],celltype]
 
-Human_atac_cons <- Human_atac_cons[cons_atac_list[,2],celltype]
-Macaque_atac_cons <- Macaque_atac_cons[cons_atac_list[,3],celltype]
-Marmoset_atac_cons <- Marmoset_atac_cons[cons_atac_list[,4],celltype]
-Mouse_atac_cons <- Mouse_atac_cons[cons_atac_list[,1],celltype]
+Human_atac <- Human_atac[,celltype]
+Macaque_atac <- Macaque_atac[,celltype]
+Marmoset_atac <- Marmoset_atac[,celltype]
+Mouse_atac <- Mouse_atac[,celltype]
 
 #RNA output
 all <- (Mouse_rna_cons + Human_rna_cons + Macaque_rna_cons + Marmoset_rna_cons)/4
@@ -234,8 +220,47 @@ all <- (Mouse_mCH_cons + Human_mCH_cons + Macaque_mCH_cons + Marmoset_mCH_cons)/
 write.table(all,"all_mCH_dif_cons.csv",sep=",",quote=F,col.names=NA)
 write.table(cons_mCH_list,"cons_mCH_list.csv",sep=",",quote=F,row.names=F)
 
-#ATAC output
-all <- (Mouse_atac_cons + Human_atac_cons + Macaque_atac_cons + Marmoset_atac_cons)/4
+#Make slimed ATAC dif profile
+num_peak <- 600
+selected_peak <- c()
+for(i in 1:length(celltype)){
+      dif <- Mouse_atac[,celltype[i]]
+      names(dif) <- rownames(Mouse_atac)
+      selected_peak <- c(selected_peak,names(sort(rank(dif),decreasing=T))[1:num_peak])
+      selected_peak <- c(selected_peak,names(sort(rank(dif),decreasing=F))[1:num_peak])
+}
+selected_peak <- unique(selected_peak)
+write.table(Mouse_atac[selected_peak,],"Mouse_atac_dif_selected.csv",sep=",",quote=F,col.names=NA)
 
-#write CSV file
-write.table(all,"all_atac_dif_cons.csv",sep=",",quote=F,col.names=NA)
+num_peak <- 600
+selected_peak <- c()
+for(i in 1:length(celltype)){
+      dif <- Human_atac[,celltype[i]]
+      names(dif) <- rownames(Human_atac)
+      selected_peak <- c(selected_peak,names(sort(rank(dif),decreasing=T))[1:num_peak])
+      selected_peak <- c(selected_peak,names(sort(rank(dif),decreasing=F))[1:num_peak])
+}
+selected_peak <- unique(selected_peak)
+write.table(Human_atac[selected_peak,],"Human_atac_dif_selected.csv",sep=",",quote=F,col.names=NA)
+
+num_peak <- 600
+selected_peak <- c()
+for(i in 1:length(celltype)){
+      dif <- Macaque_atac[,celltype[i]]
+      names(dif) <- rownames(Macaque_atac)
+      selected_peak <- c(selected_peak,names(sort(rank(dif),decreasing=T))[1:num_peak])
+      selected_peak <- c(selected_peak,names(sort(rank(dif),decreasing=F))[1:num_peak])
+}
+selected_peak <- unique(selected_peak)
+write.table(Macaque_atac[selected_peak,],"Macaque_atac_dif_selected.csv",sep=",",quote=F,col.names=NA)
+
+num_peak <- 600
+selected_peak <- c()
+for(i in 1:length(celltype)){
+      dif <- Marmoset_atac[,celltype[i]]
+      names(dif) <- rownames(Marmoset_atac)
+      selected_peak <- c(selected_peak,names(sort(rank(dif),decreasing=T))[1:num_peak])
+      selected_peak <- c(selected_peak,names(sort(rank(dif),decreasing=F))[1:num_peak])
+}
+selected_peak <- unique(selected_peak)
+write.table(Marmoset_atac[selected_peak,],"Marmoset_atac_dif_selected.csv",sep=",",quote=F,col.names=NA)
