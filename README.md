@@ -157,6 +157,9 @@ python DeepSHAP.py -i mCH_600_input.csv -p mCH_600_output.csv -o mCH_600_deep -t
 
 #Mouse ATAC peaks
 python DeepSHAP.py -i Mouse_atac_600_input.csv -p Mouse_atac_600_output.csv -o Mouse_atac_600_deep -t 12
+python DeepSHAP.py -i Human_atac_600_input.csv -p Human_atac_600_output.csv -o Human_atac_600_deep -t 12
+python DeepSHAP.py -i Macaque_atac_600_input.csv -p Macaque_atac_600_output.csv -o Macaque_atac_600_deep -t 12
+python DeepSHAP.py -i Marmoset_atac_600_input.csv -p Marmoset_atac_600_output.csv -o Marmoset_atac_600_deep -t 12
 ```
 ### 6. Identify peaks and genes within the same HiC loop
 6.1. Prepare gene and peak BED file for 600 differential genes/peaks:
