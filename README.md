@@ -244,25 +244,25 @@ bedtools pairtobed -a snm3C/Human/HiC_Loops/Sst.loop.bedpe -b Human_mCH_600.bed 
 bedtools pairtobed -a snm3C/Human/HiC_Loops/Vip.loop.bedpe -b Human_mCH_600.bed > inLoop/Human_Vip.loop_mCH.txt
 bedtools pairtobed -a snm3C/Human/HiC_Loops/Vsc.loop.bedpe -b Human_mCH_600.bed > inLoop/Human_Vsc.loop_mCH.txt
 
-#Human ATAC
-bedtools pairtobed -a snm3C/Human/HiC_Loops/Astro.loop.bedpe -b Human_atac_600.bed > inLoop/Human_Astro.loop_atac.txt
-bedtools pairtobed -a snm3C/Human/HiC_Loops/CLA.loop.bedpe -b Human_atac_600.bed > inLoop/Human_CLA.loop_atac.txt
-bedtools pairtobed -a snm3C/Human/HiC_Loops/L23.loop.bedpe -b Human_atac_600.bed > inLoop/Human_L23.loop_atac.txt
-bedtools pairtobed -a snm3C/Human/HiC_Loops/L5-ET.loop.bedpe -b Human_atac_600.bed > inLoop/Human_L5-ET.loop_atac.txt
-bedtools pairtobed -a snm3C/Human/HiC_Loops/L5-IT.loop.bedpe -b Human_atac_600.bed > inLoop/Human_L5-IT.loop_atac.txt
-bedtools pairtobed -a snm3C/Human/HiC_Loops/NP.loop.bedpe -b Human_atac_600.bed > inLoop/Human_NP.loop_atac.txt
-bedtools pairtobed -a snm3C/Human/HiC_Loops/L6-CT.loop.bedpe -b Human_atac_600.bed > inLoop/Human_L6-CT.loop_atac.txt
-bedtools pairtobed -a snm3C/Human/HiC_Loops/L6-IT.loop.bedpe -b Human_atac_600.bed > inLoop/Human_L6-IT.loop_atac.txt
-bedtools pairtobed -a snm3C/Human/HiC_Loops/L6b.loop.bedpe -b Human_atac_600.bed > inLoop/Human_L6b.loop_atac.txt
-bedtools pairtobed -a snm3C/Human/HiC_Loops/Lamp5.loop.bedpe -b Human_atac_600.bed > inLoop/Human_Lamp5.loop_atac.txt
-bedtools pairtobed -a snm3C/Human/HiC_Loops/MG.loop.bedpe -b Human_atac_600.bed > inLoop/Human_MG.loop_atac.txt
-bedtools pairtobed -a snm3C/Human/HiC_Loops/ODC.loop.bedpe -b Human_atac_600.bed > inLoop/Human_ODC.loop_atac.txt
-bedtools pairtobed -a snm3C/Human/HiC_Loops/OPC.loop.bedpe -b Human_atac_600.bed > inLoop/Human_OPC.loop_atac.txt
-bedtools pairtobed -a snm3C/Human/HiC_Loops/Pvalb-BC.loop.bedpe -b Human_atac_600.bed > inLoop/Human_Pvalb-BC.loop_atac.txt
-bedtools pairtobed -a snm3C/Human/HiC_Loops/Sncg.loop.bedpe -b Human_atac_600.bed > inLoop/Human_Sncg.loop_atac.txt
-bedtools pairtobed -a snm3C/Human/HiC_Loops/Sst.loop.bedpe -b Human_atac_600.bed > inLoop/Human_Sst.loop_atac.txt
-bedtools pairtobed -a snm3C/Human/HiC_Loops/Vip.loop.bedpe -b Human_atac_600.bed > inLoop/Human_Vip.loop_atac.txt
-bedtools pairtobed -a snm3C/Human/HiC_Loops/Vsc.loop.bedpe -b Human_atac_600.bed > inLoop/Human_Vsc.loop_atac.txt
+#Macaque ATAC
+bedtools pairtobed -a snm3C/Macaque/HiC_Loops/Astro.loop.bedpe -b Macaque_atac_600.bed > inLoop/Macaque_Astro.loop_atac.txt
+bedtools pairtobed -a snm3C/Macaque/HiC_Loops/CLA.loop.bedpe -b Macaque_atac_600.bed > inLoop/Macaque_CLA.loop_atac.txt
+bedtools pairtobed -a snm3C/Macaque/HiC_Loops/L23.loop.bedpe -b Macaque_atac_600.bed > inLoop/Macaque_L23.loop_atac.txt
+bedtools pairtobed -a snm3C/Macaque/HiC_Loops/L5-ET.loop.bedpe -b Macaque_atac_600.bed > inLoop/Macaque_L5-ET.loop_atac.txt
+bedtools pairtobed -a snm3C/Macaque/HiC_Loops/L5-IT.loop.bedpe -b Macaque_atac_600.bed > inLoop/Macaque_L5-IT.loop_atac.txt
+bedtools pairtobed -a snm3C/Macaque/HiC_Loops/NP.loop.bedpe -b Macaque_atac_600.bed > inLoop/Macaque_NP.loop_atac.txt
+bedtools pairtobed -a snm3C/Macaque/HiC_Loops/L6-CT.loop.bedpe -b Macaque_atac_600.bed > inLoop/Macaque_L6-CT.loop_atac.txt
+bedtools pairtobed -a snm3C/Macaque/HiC_Loops/L6-IT.loop.bedpe -b Macaque_atac_600.bed > inLoop/Macaque_L6-IT.loop_atac.txt
+bedtools pairtobed -a snm3C/Macaque/HiC_Loops/L6b.loop.bedpe -b Macaque_atac_600.bed > inLoop/Macaque_L6b.loop_atac.txt
+bedtools pairtobed -a snm3C/Macaque/HiC_Loops/Lamp5.loop.bedpe -b Macaque_atac_600.bed > inLoop/Macaque_Lamp5.loop_atac.txt
+bedtools pairtobed -a snm3C/Macaque/HiC_Loops/MG.loop.bedpe -b Macaque_atac_600.bed > inLoop/Macaque_MG.loop_atac.txt
+bedtools pairtobed -a snm3C/Macaque/HiC_Loops/ODC.loop.bedpe -b Macaque_atac_600.bed > inLoop/Macaque_ODC.loop_atac.txt
+bedtools pairtobed -a snm3C/Macaque/HiC_Loops/OPC.loop.bedpe -b Macaque_atac_600.bed > inLoop/Macaque_OPC.loop_atac.txt
+bedtools pairtobed -a snm3C/Macaque/HiC_Loops/Pvalb-BC.loop.bedpe -b Macaque_atac_600.bed > inLoop/Macaque_Pvalb-BC.loop_atac.txt
+bedtools pairtobed -a snm3C/Macaque/HiC_Loops/Sncg.loop.bedpe -b Macaque_atac_600.bed > inLoop/Macaque_Sncg.loop_atac.txt
+bedtools pairtobed -a snm3C/Macaque/HiC_Loops/Sst.loop.bedpe -b Macaque_atac_600.bed > inLoop/Macaque_Sst.loop_atac.txt
+bedtools pairtobed -a snm3C/Macaque/HiC_Loops/Vip.loop.bedpe -b Macaque_atac_600.bed > inLoop/Macaque_Vip.loop_atac.txt
+bedtools pairtobed -a snm3C/Macaque/HiC_Loops/Vsc.loop.bedpe -b Macaque_atac_600.bed > inLoop/Macaque_Vsc.loop_atac.txt
 
 #Macaque RNA
 bedtools pairtobed -a snm3C/Macaque/HiC_Loops/Astro.loop.bedpe -b Macaque_rna_600.bed > inLoop/Macaque_Astro.loop_rna.txt
