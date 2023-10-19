@@ -52,7 +52,7 @@ sum_SHAP_by_HiC_v3 <- function(dif_file,atac_file,atac_cons_file,gene_files,inLo
 
 		for(j in 1:length(other_shap)){
 		      print(sufix[j])
-		      print(org[1])
+		      print(orgs[1])
 		      HiC_file <- paste(inLoop_dir,"/",orgs[1],"_",list[celltype,1],".loop_",sufix[j],".txt",sep="")
 		      HiC_data <- read.table(HiC_file,sep="\t",header=F)
 		      loop <- apply(HiC_data[,1:6],1,loop_name)
@@ -66,7 +66,7 @@ sum_SHAP_by_HiC_v3 <- function(dif_file,atac_file,atac_cons_file,gene_files,inLo
 			     }
 		      }
 		      for(l in 2:length(orgs)){
-		      	    print(org[2])
+		      	    print(orgs[l])
 		      	    names(cons_peak) <- atac_cons[cons_peak,l]
 		      	   HiC_file <- paste(inLoop_dir,"/",orgs[l],"_",list[celltype,1],".loop_",sufix[j],".txt",sep="")
 			   HiC_data <- read.table(HiC_file,sep="\t",header=F)
