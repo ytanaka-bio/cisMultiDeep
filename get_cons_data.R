@@ -22,10 +22,11 @@ Marmoset_rna <- read.table("gene_expression/Marmoset_rna_dif.csv",sep=',',header
 Mouse_rna <- read.table("gene_expression/Mouse_rna_dif.csv",sep=',',header=T,row.names=1,check.names=F)
 
 #common celltype across species
-celltype_rna <- intersect(colnames(Human_rna),colnames(Macaque_rna))
-celltype_rna <- intersect(celltype_rna,colnames(Marmoset_rna))
-celltype_rna <- intersect(celltype_rna,colnames(Mouse_rna))
-celltype_rna <- sort(celltype_rna)
+#celltype_rna <- intersect(colnames(Human_rna),colnames(Macaque_rna))
+#celltype_rna <- intersect(celltype_rna,colnames(Marmoset_rna))
+#celltype_rna <- intersect(celltype_rna,colnames(Mouse_rna))
+#celltype_rna <- sort(celltype_rna)
+celltype_rna <- colnames(Mouse_rna)
 
 #get list of orthologus gene
 rownames(cons_rna_list) <- cons_rna_list[,2]
@@ -40,6 +41,7 @@ cons_rna_list <- cons_rna_list[intersect(rownames(cons_rna_list),rownames(Mouse_
 #Focus on conserved peaks
 Human_rna_cons <- Human_rna[cons_rna_list[,2],celltype_rna]
 Macaque_rna_cons <- Macaque_rna[cons_rna_list[,3],celltype_rna]
+Marmoset_rna['Sst Chodl'] <- 0     #Add Sst Chodl columns, since this cell type is absent in Marmoset data
 Marmoset_rna_cons <- Marmoset_rna[cons_rna_list[,4],celltype_rna]
 Mouse_rna_cons <- Mouse_rna[cons_rna_list[,1],celltype_rna]
 Human_rna_cons[Human_rna_cons > max] <- max
@@ -161,11 +163,12 @@ Marmoset_atac <- read.csv("chromatin_access/Marmoset_atac_dif.csv",header=T,row.
 Mouse_atac <- read.csv("chromatin_access/Mouse_atac_dif.csv",header=T,row.names=1,check.names=F)
 
 #common celltypes across species
-celltype_atac <- intersect(colnames(Human_atac),colnames(Mouse_atac))
-celltype_atac <- intersect(colnames(Human_atac),colnames(Macaque_atac))
-celltype_atac <- intersect(celltype_atac,colnames(Marmoset_atac))
-celltype_atac <- intersect(celltype_atac,colnames(Mouse_atac))
-celltype_atac <- sort(celltype_atac)
+#celltype_atac <- intersect(colnames(Human_atac),colnames(Mouse_atac))
+#celltype_atac <- intersect(colnames(Human_atac),colnames(Macaque_atac))
+#celltype_atac <- intersect(celltype_atac,colnames(Marmoset_atac))
+#celltype_atac <- intersect(celltype_atac,colnames(Mouse_atac))
+#celltype_atac <- sort(celltype_atac)
+celltype_atac <- colnames(Mouse_atac)
 
 #get common celltypes and genes
 celltype <- intersect(celltype_rna,celltype_mCG)
@@ -196,6 +199,7 @@ Mouse_mCH_cons <- Mouse_mCH_cons[cons_mCH_list[,1],celltype]
 
 Human_atac <- Human_atac[,celltype]
 Macaque_atac <- Macaque_atac[,celltype]
+Marmoset_atac['Sst Chodl'] <- 0
 Marmoset_atac <- Marmoset_atac[,celltype]
 Mouse_atac <- Mouse_atac[,celltype]
 
@@ -221,29 +225,29 @@ write.table(all,"all_mCH_dif_cons.csv",sep=",",quote=F,col.names=NA)
 write.table(cons_mCH_list,"cons_mCH_list.csv",sep=",",quote=F,row.names=F)
 
 #Make slimed ATAC dif profile
-num_peak <- 600
+num_peak <- 10000
 selected_peak <- c()
 for(i in 1:length(celltype)){
       dif <- Mouse_atac[,celltype[i]]
       names(dif) <- rownames(Mouse_atac)
       selected_peak <- c(selected_peak,names(sort(rank(dif),decreasing=T))[1:num_peak])
-      selected_peak <- c(selected_peak,names(sort(rank(dif),decreasing=F))[1:num_peak])
+      #selected_peak <- c(selected_peak,names(sort(rank(dif),decreasing=F))[1:num_peak])
 }
 selected_peak <- unique(selected_peak)
 write.table(Mouse_atac[selected_peak,],"Mouse_atac_dif_selected.csv",sep=",",quote=F,col.names=NA)
 
-num_peak <- 600
+num_peak <- 10000
 selected_peak <- c()
 for(i in 1:length(celltype)){
       dif <- Human_atac[,celltype[i]]
       names(dif) <- rownames(Human_atac)
       selected_peak <- c(selected_peak,names(sort(rank(dif),decreasing=T))[1:num_peak])
-      selected_peak <- c(selected_peak,names(sort(rank(dif),decreasing=F))[1:num_peak])
+      #selected_peak <- c(selected_peak,names(sort(rank(dif),decreasing=F))[1:num_peak])
 }
 selected_peak <- unique(selected_peak)
 write.table(Human_atac[selected_peak,],"Human_atac_dif_selected.csv",sep=",",quote=F,col.names=NA)
 
-num_peak <- 600
+num_peak <- 10000
 selected_peak <- c()
 for(i in 1:length(celltype)){
       dif <- Macaque_atac[,celltype[i]]
@@ -254,7 +258,7 @@ for(i in 1:length(celltype)){
 selected_peak <- unique(selected_peak)
 write.table(Macaque_atac[selected_peak,],"Macaque_atac_dif_selected.csv",sep=",",quote=F,col.names=NA)
 
-num_peak <- 600
+num_peak <- 10000
 selected_peak <- c()
 for(i in 1:length(celltype)){
       dif <- Marmoset_atac[,celltype[i]]
