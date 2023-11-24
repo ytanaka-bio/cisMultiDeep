@@ -170,29 +170,33 @@ output3 = output + "_model"
 model.save(filepath=output3,overwrite=True)
 
 print("Calculate SHAP values")
-output4 = output + "_expected.csv"
-background = X_train2.iloc[np.random.choice(X_train2.shape[0], args.size, replace=False)]
-explainer = shap.DeepExplainer(model,np.array(background))
-shap_values = explainer.shap_values(np.array(background))
+#output4 = output + "_expected.csv"
+#background = X_train2.iloc[np.random.choice(X_train2.shape[0], args.size, replace=False)]
+#explainer = shap.DeepExplainer(model,np.array(background))
+#shap_values = explainer.shap_values(np.array(background))
 #expected_value = explainer.expected_value
 #expected_value = pd.DataFrame(expected_value)
 #expected_value.to_csv(output4)
 
-print("Calculate mean abolute SHAP values")
+print("Calculate mean SHAP values in each cell type")
 output6 = output + "_meanshap.csv"
-shap_values = np.absolute(shap_values)
 mean_shap = pd.DataFrame(0, index=feature,columns=pheno)
 for i in range(0,len(pheno)):
+  print(pheno[i])
+  cell = dataout[dataout[pheno[i]]==1].index
+  select_data = dataframe.loc[cell,:]
+  explainer = shap.DeepExplainer(model,np.array(select_data))
+  shap_values = explainer.shap_values(np.array(select_data))
   df = pd.DataFrame(shap_values[i],columns=dindex)
   if args.reduce_dim == True:
-        loading = pca.components_.T * np.sqrt(pca.explained_variance_)
-        loading[loading < 0] = 0
-        load_df = pd.DataFrame(loading,index = feature)
-        load_shap = load_df.iloc[:,:args.pc] * df.sum()
-        mean_shap.iloc[:,i] = mean_shap.iloc[:,i] + load_shap.sum(axis=1)
+    loading = pca.components_.T * np.sqrt(pca.explained_variance_)
+    #loading[loading < 0] = 0
+    load_df = pd.DataFrame(loading,index = feature)
+    load_shap = load_df.iloc[:,:args.pc] * df.sum() * pca.explained_variance_ratio_
+    mean_shap.iloc[:,i] = load_shap.sum(axis=1)
   else:
-        mean_shap.iloc[:,i] = mean_shap.iloc[:,i] + df.sum()
+    mean_shap.iloc[:,i] = df.sum()
 
-mean_shap = mean_shap / args.size
+
 mean_shap.to_csv(output6)
 
