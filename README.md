@@ -133,7 +133,7 @@ bedtools intersect -a Mouse_atac_Marmoset.bed -b Marmoset_atac.bed -wa -wb -f 0.
 ```{r eval=FALSE}
 R CMD BATCH get_cons_data.R
 ```
-4.2. Prepare input and output dataset for Deep Learning (Here, we focus on top 600 differential genes/peaks in each cell type):
+4.2. Prepare input and output dataset for Deep Learning (Here, we focus on top 1000/10000 differential genes/peaks in each cell type):
 ```{r eval=FALSE}
 #RNA, mCG, mCH
 python prepare_cons_dataset.py -f 10XMultiome/Mouse/Mouse_rna.h5ad 10XMultiome/Human/Human_rna.h5ad 10XMultiome/Macaque/Macaque_rna.h5ad 10XMultiome/Marmoset/Marmoset_rna.h5ad -d all_rna_dif_cons.csv -a subclass_Bakken_2022 -r cons_rna_list.csv -o rna_1000 -g 1000
