@@ -23,7 +23,7 @@ parser.add_argument('-x', help="Max trial",type=int, default=30,dest="max_trial"
 parser.add_argument('-l', help='Evaluate model?',action='store_true',default=False,dest="eval")
 parser.add_argument('-r', help='Do dimentional reduction?',action='store_true',default=True,dest="reduce_dim")
 parser.add_argument('-a', help="How many principal component do you use?",default=200,dest="pc")
-parser.add_argument('-n', help='Size of background dataset',type=int, default=1000,dest="size")
+parser.add_argument('-n', help='Size of background dataset for background calculation (Use all data if not specified)',type=int, dest="size")
 parser.add_argument('-m', help='metrics',default='accuracy',type=str,dest="metrics")
 parser.add_argument('-u', help='activation function in output layer', nargs=1,type=str,default='softmax',dest="act_out")
 parser.add_argument('-t', help="number of threads",default=1,type=int,dest="thread")
@@ -157,19 +157,19 @@ if args.eval == True:
   output2 = output + "_predict.csv"
   y_score.to_csv(output2)
   
-print("Output the prediction")
-model.fit(X_train2, Y_train2, validation_data=(X_val2, Y_val2), epochs=args.epoch)
-all_score = pd.DataFrame(model.predict(dataframe))
-all_score.index = dataframe.index
-all_score.columns = pheno
-output5 = output + "_result.csv"
-all_score.to_csv(output5)
+#print("Output the prediction")
+#model.fit(X_train2, Y_train2, validation_data=(X_val2, Y_val2), epochs=args.epoch)
+#all_score = pd.DataFrame(model.predict(dataframe))
+#all_score.index = dataframe.index
+#all_score.columns = pheno
+#output5 = output + "_result.csv"
+#all_score.to_csv(output5)
 
-print("Save the model")
-output3 = output + "_model"
-model.save(filepath=output3,overwrite=True)
+#print("Save the model")
+#output3 = output + "_model"
+#model.save(filepath=output3,overwrite=True)
 
-print("Calculate SHAP values")
+#print("Calculate SHAP values")
 #output4 = output + "_expected.csv"
 #background = X_train2.iloc[np.random.choice(X_train2.shape[0], args.size, replace=False)]
 #explainer = shap.DeepExplainer(model,np.array(background))
@@ -184,19 +184,23 @@ mean_shap = pd.DataFrame(0, index=feature,columns=pheno)
 for i in range(0,len(pheno)):
   print(pheno[i])
   cell = dataout[dataout[pheno[i]]==1].index
-  select_data = dataframe.loc[cell,:]
-  explainer = shap.DeepExplainer(model,np.array(select_data))
-  shap_values = explainer.shap_values(np.array(select_data))
-  df = pd.DataFrame(shap_values[i],columns=dindex)
-  if args.reduce_dim == True:
-    loading = pca.components_.T * np.sqrt(pca.explained_variance_)
-    #loading[loading < 0] = 0
-    load_df = pd.DataFrame(loading,index = feature)
-    load_shap = load_df.iloc[:,:args.pc] * df.sum() * pca.explained_variance_ratio_
-    mean_shap.iloc[:,i] = load_shap.sum(axis=1)
-  else:
-    mean_shap.iloc[:,i] = df.sum()
-
+  if args.size != None:
+    if args.size < len(cell):
+      cell = cell[np.random.choice(len(cell),args.size, replace=False)]
+      
+  if len(cell) != 0:
+    select_data = dataframe.loc[cell,:]
+    explainer = shap.DeepExplainer(model,np.array(select_data))
+    shap_values = explainer.shap_values(np.array(select_data))
+    df = pd.DataFrame(shap_values[i],columns=dindex)
+    if args.reduce_dim == True:
+      loading = pca.components_.T * np.sqrt(pca.explained_variance_)
+      #loading[loading < 0] = 0
+      load_df = pd.DataFrame(loading,index = feature)
+      load_shap = load_df.iloc[:,:args.pc] * df.sum() * pca.explained_variance_ratio_
+      mean_shap.iloc[:,i] = load_shap.sum(axis=1)
+    else:
+      mean_shap.iloc[:,i] = df.sum()
 
 mean_shap.to_csv(output6)
 
