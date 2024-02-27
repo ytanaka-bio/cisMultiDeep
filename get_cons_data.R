@@ -253,7 +253,7 @@ for(i in 1:length(celltype)){
       dif <- Macaque_atac[,celltype[i]]
       names(dif) <- rownames(Macaque_atac)
       selected_peak <- c(selected_peak,names(sort(rank(dif),decreasing=T))[1:num_peak])
-      selected_peak <- c(selected_peak,names(sort(rank(dif),decreasing=F))[1:num_peak])
+      #selected_peak <- c(selected_peak,names(sort(rank(dif),decreasing=F))[1:num_peak])
 }
 selected_peak <- unique(selected_peak)
 write.table(Macaque_atac[selected_peak,],"Macaque_atac_dif_selected.csv",sep=",",quote=F,col.names=NA)
@@ -264,7 +264,7 @@ for(i in 1:length(celltype)){
       dif <- Marmoset_atac[,celltype[i]]
       names(dif) <- rownames(Marmoset_atac)
       selected_peak <- c(selected_peak,names(sort(rank(dif),decreasing=T))[1:num_peak])
-      selected_peak <- c(selected_peak,names(sort(rank(dif),decreasing=F))[1:num_peak])
+      #selected_peak <- c(selected_peak,names(sort(rank(dif),decreasing=F))[1:num_peak])
 }
 selected_peak <- unique(selected_peak)
 write.table(Marmoset_atac[selected_peak,],"Marmoset_atac_dif_selected.csv",sep=",",quote=F,col.names=NA)
