@@ -150,9 +150,9 @@ python prepare_dataset.py -f 10XMultiome/Marmoset/Marmoset_atac.h5ad -d Marmoset
 5.1. Train Deep learning model and calculate the contribution (SHAP value) of each gene/peak to the segregation of cell types:
 ```{r eval=FALSE}
 #RNA, mCG, mCH of conserved genes
-python DeepSHAP.py -i rna_1000_input.csv -p rna_1000_output.csv -o rna_1000_deep_DR -t 12
-python DeepSHAP.py -i mCG_1000_input.csv -p mCG_1000_output.csv -o mCG_1000_deep_DR -t 12
-python DeepSHAP.py -i mCH_1000_input.csv -p mCH_1000_output.csv -o mCH_1000_deep_DR -t 12
+python DeepSHAP_sparse.py -i rna_1000 -p rna_1000_output.csv -o rna_1000_deep_DR -t 12
+python DeepSHAP_sparse.py -i mCG_1000 -p mCG_1000_output.csv -o mCG_1000_deep_DR -t 12
+python DeepSHAP_sparse.py -i mCH_1000 -p mCH_1000_output.csv -o mCH_1000_deep_DR -t 12
 
 #Mouse ATAC peaks
 python DeepSHAP_sparse.py -i Mouse_atac_10000 -p Mouse_atac_10000_output.csv -o Mouse_atac_10000_deep_DR -t 12
