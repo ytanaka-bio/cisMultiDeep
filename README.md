@@ -103,7 +103,7 @@ python identify_celltype_methyl.py
 ```
 2.3. Calculate the cell type specificity score for each peak from chromatin accessibility profiles (ATAC):
 ```{r eval=FALSE}
-python identify_celltype_chromatin.py
+python identify_celltype_peak.py
 ```
 ### 3. Identification of conserved peaks across species
 3.1. Download LiftOver UCSC Chain files:
